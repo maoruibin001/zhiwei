@@ -1,0 +1,11 @@
+.error_tip {
+    color: red;
+}
+.border-red {
+    border-color: red;
+}
+.ab_right {
+    position: absolute;
+    right: 0;
+    z-index: 10000;
+}

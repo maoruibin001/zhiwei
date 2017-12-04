@@ -5,6 +5,7 @@
 const devConfig = require('./webpack.dev.config');
 const webpack = require('webpack');
 const baseConfig = require('./baseConfig');
+const serialize = require('serialize-javascript');
 // 热加载插件
 const hotMiddleware = require('webpack-hot-middleware');
 // 热更新插件
@@ -12,11 +13,17 @@ const devMiddleware = require('webpack-dev-middleware');
 const express = require('express');
 const path = require('path');
 
+const bodyParser = require('body-parser');
+
+const api = require('./api');
+
 
 // 编译配置文件
 const compiler = webpack(devConfig);
 
 const app = express();
+
+app.use(bodyParser.urlencoded({extended: false}));
 // app.use(express.static('./dist'));
 // 热加载中间件
 const webpackHot = hotMiddleware(compiler, {});
@@ -29,6 +36,9 @@ app.use(webpackHot);
 
 app.use(webpackDev);
 
+app.get('/favicon.ico', function (req, res) {
+  res.end();
+});
 // 页面路由
 app.get('/:pagename?', function (req, res, next) {
   let pagename = req.params.pagename || baseConfig.INDEXMODULE;
@@ -37,6 +47,7 @@ app.get('/:pagename?', function (req, res, next) {
   compiler.outputFileSystem.readFile(filepath, function (err, result) {
     if (err) {
       // something error
+      console.log(err);
       return next('输入路径无效，请输入目录名作为路径，有效路径有：\n/' + Object.keys(devConfig.entry).filter(e => e !== 'vendors').join('\n/'))
     }
     // 发送获取到的页面
@@ -44,11 +55,11 @@ app.get('/:pagename?', function (req, res, next) {
     res.send(result)
     res.end()
   })
-})
-
-app.listen(8089, function() {
-  console.log('server start at:  localhost:8089');
 });
 
+app.use('/los', api);
+app.listen(8089, function () {
+  console.log('server start at:  localhost:8089');
+});
 
 

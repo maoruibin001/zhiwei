@@ -11,13 +11,16 @@
     "uglify": "mkdir -p lint/js && uglifyjs lint/*.js -m -o lint/js/app.js"
   },
   "dependencies": {
+    "body-parser": "^1.18.2",
     "glob": "^7.1.2",
+    "jquery": "^3.2.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "redux": "^3.7.2",
     "requirejs": "^2.3.5",
+    "serialize-javascript": "^1.4.0",
     "vue": "^2.5.8"
   },
   "devDependencies": {

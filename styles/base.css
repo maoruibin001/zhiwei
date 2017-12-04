@@ -1,0 +1,24 @@
+body {
+    background-color: #F6F9FB;
+    min-height: 720px;
+    color: #555;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+input {
+    text-rendering: auto;
+    color: initial;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    margin: 0em;
+    font: 13.3333px Arial;
+    outline: none;
+}
+
+
