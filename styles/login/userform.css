@@ -43,16 +43,3 @@
     color: blue;
     border-bottom: 2px solid blue;
 }
-.login_outer .login_box .register-form .group-inputs{
-    border-top: 1px solid #D5D5D5;
-    padding: 0;
-}
-.login_outer .login_box .register-form .group-inputs .input{
-    background-color: #fff;
-    padding: .6em .8em;
-    border-bottom: 1px solid #D5D5D5;
-    border-left: 1px solid #D5D5D5;
-    border-right: 1px solid #D5D5D5;
-    position: relative;
-    /*border: 1px solid #ccc;*/
-}

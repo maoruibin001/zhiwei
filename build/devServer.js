@@ -15,7 +15,7 @@ const path = require('path');
 
 const bodyParser = require('body-parser');
 
-const api = require('./api');
+const api = require('../www/api/login/login');
 
 
 // 编译配置文件

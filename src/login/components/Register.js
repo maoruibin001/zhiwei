@@ -49,18 +49,19 @@ class Register extends Component {
     e.preventDefault();
 
     const formData = {
-      name: this.refs.name.value,
-      phone: this.refs.phone.value,
-      pwd: this.refs.pwd.value
+      name: this.refs.register_name.value,
+      phone: this.refs.register_phone.value,
+      pwd: this.refs.register_pwd.value
     }
     let invalids = Valid.check(FIELDRULLS, formData, this.refs, {
-      position: 'absolute'
+      position: 'absolute',
+      filled: 'register_',
     });
 
     console.log('invalids: ', invalids);
     if (invalids) return;
     $.ajax({
-      url: '/los/login',
+      url: '/los/register',
       type: 'post',
       data: formData,
       success: (data) => {
@@ -71,20 +72,20 @@ class Register extends Component {
       error: function(err) {
         console.log(err);
       }
-    })
+    });
   }
   render() {
     return <div className="register-form">
       <form action="">
         <div className="group-inputs">
           <div className="name input">
-            <input ref="name" type="text" placeholder="姓名"/>
+            <input ref="register_name" type="text" placeholder="姓名"/>
           </div>
           <div className="phone input">
-            <input ref="phone" type="text" placeholder="手机号"/>
+            <input ref="register_phone" type="text" placeholder="手机号"/>
           </div>
           <div className="passworld input">
-            <input ref="pwd" type="password" placeholder="密码（不少于6位）"/>
+            <input ref="register_pwd" type="password" placeholder="密码（不少于6位）"/>
           </div>
           <div className="button-register">
             <button onClick={this.register.bind(this)}>注册知乎</button>

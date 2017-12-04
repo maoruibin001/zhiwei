@@ -4,7 +4,23 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
 
+import Valid from '../../components/valid/valid';
 import '../../../styles/login/login.css';
+
+const FIELDRULLS = [
+  {
+    require: true,
+    name: 'phone',
+    rex: /\d{11}/,
+    emptyErr: '电话号码不能为空',
+    err: '请输入正确的电话号码'
+  },
+  {
+    require: true,
+    name: 'pwd',
+    label: '密码'
+  },
+];
 class Login extends Component {
   constructor() {
     super();
@@ -17,15 +33,37 @@ class Login extends Component {
   }
   login(e) {
     e.preventDefault();
-    console.log(this.refs.phone.value);
-    console.log(this.refs.pwd.value);
+    const formData = {
+      phone: this.refs.phone.value,
+      pwd: this.refs.pwd.value
+    };
+
+    let invalids = Valid.check(FIELDRULLS, formData, this.refs);
+    console.log(invalids);
+
+    if (invalids) return;
+
+    $.ajax({
+      url: '/los/login',
+      type: 'post',
+      data: formData,
+      success: (data) => {
+        this.setState({
+          name: data.name
+        });
+      },
+      error: function(err) {
+        console.log(err);
+      }
+    });
+
   }
   render() {
     return <div className="login-form">
       <form autoComplete="off">
         <div className="group-inputs">
           <div className="name input" style={{display: 'none'}}>
-            <input type="text" placeholder="姓名"/>
+            <input ref="name" type="text" placeholder="姓名"/>
           </div>
           <div className="phone input">
             <input ref="phone"  type="text" defaultValue={this.state.userInfo.phone} placeholder="手机号"/>
