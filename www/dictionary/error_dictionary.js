@@ -6,7 +6,7 @@ function findDescByCode(code, msg) {
     case 2:
       return '必输字段为空，请检查下列字段： ' + msg;
     default:
-      return '必输字段 ' + msg + ' 不能为空';
+      return '校验不通过： ' + msg;
   }
 }
 

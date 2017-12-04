@@ -30,8 +30,8 @@ class UserForm extends Component {
     return <div className="login_outer">
         <div className="login_box">
           <div className="login-header">
-            <h1>知 乎</h1>
-            <h2>与世界分享你的知识、经验和见识</h2>
+            <h1>知 微</h1>
+            <h2>与知微一起，分享你的知识、经验和见识</h2>
           </div>
           <div className="login-content">
             <div className="login-tab-navs">

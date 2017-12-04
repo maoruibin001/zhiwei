@@ -6,6 +6,7 @@ import $ from 'jquery';
 
 import Valid from '../../components/valid/valid';
 import '../../../styles/login/login.css';
+import Utils from '../../utils/utils';
 
 const FIELDRULLS = [
   {
@@ -39,37 +40,32 @@ class Login extends Component {
     };
 
     let invalids = Valid.check(FIELDRULLS, formData, this.refs);
-    console.log(invalids);
-
     if (invalids) return;
-
     $.ajax({
-      url: '/los/login',
       type: 'post',
+      url: '/los/login',
       data: formData,
-      success: (data) => {
-        this.setState({
-          name: data.name
-        });
-      },
-      error: function(err) {
-        console.log(err);
+      success: function (response) {
+        if (response.responseCode === Utils.SUCCESSCODE) {
+          location.href = response.model.url;
+        } else {
+          console.log(response);
+        }
       }
     });
-
   }
   render() {
     return <div className="login-form">
-      <form autoComplete="off">
+      <form autoComplete="off" ref="form" method="POST">
         <div className="group-inputs">
           <div className="name input" style={{display: 'none'}}>
-            <input ref="name" type="text" placeholder="姓名"/>
+            <input ref="name" type="text" name="name" placeholder="姓名"/>
           </div>
           <div className="phone input">
-            <input ref="phone"  type="text" defaultValue={this.state.userInfo.phone} placeholder="手机号"/>
+            <input ref="phone"  type="text" name="phone" defaultValue={this.state.userInfo.phone} placeholder="手机号"/>
           </div>
           <div className="password input">
-            <input ref="pwd"  type="password" defaultValue={this.state.userInfo.password} placeholder="密码（不少于6位）"/>
+            <input ref="pwd"  type="password" name="pwd" defaultValue={this.state.userInfo.password} placeholder="密码（不少于6位）"/>
           </div>
           <div className="button-login">
             <button onClick={this.login.bind(this)}>登录</button>
@@ -80,7 +76,7 @@ class Login extends Component {
         <a href="">手机验证码登录</a>
       </p>
       <div className="qrcode">
-        <button className="qucode-toggleButton">下载知乎</button>
+        <button className="qucode-toggleButton">下载知微</button>
       </div>
     </div>
   }

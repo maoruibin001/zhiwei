@@ -2,9 +2,10 @@
  * Created by lenovo on 2017/12/1.
  */
 import React, {Component} from 'react';
-import '../../../styles/login/register.css';
 import $ from 'jquery';
+import '../../../styles/login/register.css';
 import Valid from '../../components/valid/valid';
+import Utils from '../../utils/utils';
 
 const FIELDRULLS = [
   {
@@ -57,46 +58,44 @@ class Register extends Component {
       position: 'absolute',
       filled: 'register_',
     });
-
-    console.log('invalids: ', invalids);
     if (invalids) return;
     $.ajax({
-      url: '/los/register',
       type: 'post',
+      url: '/los/register',
       data: formData,
-      success: (data) => {
-        this.setState({
-          name: data.name
-        });
+      success: function (response) {
+        if (response.responseCode === Utils.SUCCESSCODE) {
+          location.href = response.model.url;
+        } else {
+          console.log(response);
+        }
       },
-      error: function(err) {
-        console.log(err);
-      }
+
     });
   }
   render() {
     return <div className="register-form">
-      <form action="">
+      <form action="/los/register" method="POST" ref="register_form">
         <div className="group-inputs">
           <div className="name input">
-            <input ref="register_name" type="text" placeholder="姓名"/>
+            <input ref="register_name" name="name" type="text" placeholder="姓名"/>
           </div>
           <div className="phone input">
-            <input ref="register_phone" type="text" placeholder="手机号"/>
+            <input ref="register_phone" name="phone" type="text" placeholder="手机号"/>
           </div>
           <div className="passworld input">
-            <input ref="register_pwd" type="password" placeholder="密码（不少于6位）"/>
+            <input ref="register_pwd" type="password" name="pwd" placeholder="密码（不少于6位）"/>
           </div>
           <div className="button-register">
-            <button onClick={this.register.bind(this)}>注册知乎</button>
+            <button onClick={this.register.bind(this)}>注册知微</button>
           </div>
         </div>
       </form>
       <p className="agreement-tip">
-        点击「注册」按钮，即代表你同意 <a href="">《知乎协议》</a>
+        点击「注册」按钮，即代表你同意 <a href="">《知微协议》</a>
       </p>
       <div className="qrcode">
-        <button className="qucode-toggleButton">下载知乎</button>
+        <button className="qucode-toggleButton">下载知微</button>
       </div>
     </div>
   }
