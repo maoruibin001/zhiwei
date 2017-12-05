@@ -20,5 +20,17 @@ input {
     font: 13.3333px Arial;
     outline: none;
 }
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+}
 
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+    background-color: rgb(250, 255, 189); /* #FAFFBD; */
+    background-image: none;
+    color: rgb(0, 0, 0);
+}
+
+.display_none {
+    display: none;
+}
 
