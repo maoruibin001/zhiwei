@@ -5,6 +5,7 @@
 const mysql = require('mysql');
 
 const DatabaseOperation = {
+  // 初始化建表
   init() {
     let queryStr = `create table if not exists user_base_info(
                                   id int not null auto_increment,
@@ -19,7 +20,6 @@ const DatabaseOperation = {
         console.log(err);
       } else {
         console.log('数据库表user_base_info初始化成功');
-        console.log('result: ', result);
       }
     })
   },
