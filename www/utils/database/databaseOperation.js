@@ -5,6 +5,24 @@
 const mysql = require('mysql');
 
 const DatabaseOperation = {
+  init() {
+    let queryStr = `create table if not exists user_base_info(
+                                  id int not null auto_increment,
+                                  name varchar(40) not null,
+                                  phone varchar(40) not null,
+                                  pwd varchar(40) not null,
+                                  create_time bigint not null,
+                                  primary key(id)
+                                  );`;
+    this.query(queryStr, function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log('数据库表user_base_info初始化成功');
+        console.log('result: ', result);
+      }
+    })
+  },
   /**
    * 对数据库进行操作
    * @param  {String} queryStr sql语句
@@ -22,7 +40,7 @@ const DatabaseOperation = {
     };
     let connection = mysql.createConnection(config);
     connection.connect();
-    connection.query(queryStr,  (err, result) => {
+    connection.query(queryStr, (err, result) => {
       if (err) {
         console.log('[SELECT ERROR] - ', err.message);
         cb(err)
@@ -74,7 +92,7 @@ const DatabaseOperation = {
    * @param  {Function} cb 回调函数
    */
   saveUserInfo(userInfo, cb) {
-    this.checkPhoneRegistered(userInfo,  (err, data) => {
+    this.checkPhoneRegistered(userInfo, (err, data) => {
       if (err) {
         cb(err);
         console.log(err);
@@ -114,9 +132,12 @@ const DatabaseOperation = {
             cb('用户名密码不匹配');
           }
         } else {
-          cb('该用户信息不存在');        }
+          cb('该用户信息不存在');
+        }
       }
     });
   }
 };
+
+DatabaseOperation.init();
 module.exports = DatabaseOperation;
