@@ -17,22 +17,25 @@ function filterUserInfo(userInfo, options) {
     pwd: userInfo.pwd && userInfo.pwd + '',
   }
 }
-router.post('/login', function (req, res) {
+router.post('/zhiwei-pc.login', function (req, res) {
+  console.log('req.body: ', req.body);
   let userInfo = filterUserInfo(req.body, {
     type: 'login'
   });
+  console.log('userInfo: ', userInfo);
   let invalids = Utils.checkUserInfo(userInfo, 'login');
   if (invalids) {
     let responseData = Utils.transformResponse(userInfo, Utils.CHECKERRORCODE, JSON.stringify(invalids));
-    res.json(responseData);
+    res.status(200).json(responseData);
   } else {
     Utils.matchUserInfo(userInfo, function (err, data) {
       if (err) {
         console.log(err);
-        res.json(Utils.transformResponse({errorMsg: err}), Utils.ERRORCODE);
+        let responseData = Utils.transformResponse(null, Utils.ERRORCODE, JSON.stringify({errorMsg: err}));
+        res.status(200).json(responseData);
       } else {
         console.log('用户登录成功');
-        res.json(Utils.transformResponse({
+        res.status(200).json(Utils.transformResponse({
           msg: '注册成功',
           url: 'http://localhost:8089/index'
         }, Utils.SUCCESSCODE));
@@ -42,7 +45,7 @@ router.post('/login', function (req, res) {
   }
 });
 
-router.post('/register', function (req, res) {
+router.post('/zhiwei-pc.register', function (req, res) {
   let userInfo = filterUserInfo(req.body, {
     type: 'register'
   });
@@ -50,14 +53,15 @@ router.post('/register', function (req, res) {
 
   if (invalids) {
     let responseData = Utils.transformResponse(userInfo, Utils.CHECKERRORCODE, JSON.stringify(invalids));
-    res.json(responseData);
+    res.status(200).json(responseData);
   } else {
     Utils.saveUserInfo(userInfo, function (err, data) {
       if (err) {
         console.log(err);
-        res.json(Utils.transformResponse(null, Utils.ERRORCODE, JSON.stringify({errorMsg: err})));
+        let responseData = Utils.transformResponse(null, Utils.ERRORCODE, JSON.stringify({errorMsg: err}));
+        res.status(200).json(responseData);
       } else {
-        res.json(Utils.transformResponse({
+        res.status(200).json(Utils.transformResponse({
           msg: '注册成功',
           url: 'http://localhost:8089/index'
         }, Utils.SUCCESSCODE));

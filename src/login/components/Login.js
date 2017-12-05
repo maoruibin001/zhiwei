@@ -1,5 +1,6 @@
 /**
  * Created by lenovo on 2017/12/1.
+ * 登录表单
  */
 import React, {Component} from 'react';
 import $ from 'jquery';
@@ -8,6 +9,7 @@ import Valid from '../../components/valid/valid';
 import '../../../styles/login/login.css';
 import Utils from '../../utils/utils';
 
+// 校验规则
 const FIELDRULLS = [
   {
     require: true,
@@ -22,16 +24,18 @@ const FIELDRULLS = [
     label: '密码'
   },
 ];
+// 登录组件
 class Login extends Component {
   constructor() {
     super();
     this.state = {
       userInfo: {
-        phone: '2324',
-        password: '234243'
+        phone: '',
+        password: ''
       }
     }
   }
+  // 点击登录按钮
   login(e) {
     e.preventDefault();
     const formData = {
@@ -39,8 +43,12 @@ class Login extends Component {
       pwd: this.refs.pwd.value
     };
 
+    // 校验表单数据
     let invalids = Valid.check(FIELDRULLS, formData, this.refs);
     if (invalids) return;
+    Utils.ajax('login', formData, function(err, model) {
+      debugger;
+    });
     $.ajax({
       type: 'post',
       url: '/los/login',

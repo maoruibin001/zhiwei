@@ -1,5 +1,6 @@
 /**
  * Created by lenovo on 2017/12/1.
+ * 注册表单
  */
 import React, {Component} from 'react';
 import $ from 'jquery';

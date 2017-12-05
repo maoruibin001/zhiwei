@@ -1,6 +1,6 @@
 /**
  * Created by lenovo on 2017/7/31.
- * 校验工具
+ * 校验工具，对表单提交数据进行校验
  */
 import './valid.css';
 
@@ -26,6 +26,11 @@ function after(newElement, targetElement) {
   }
 }
 
+/* 在一个元素后生成一个兄弟元素，并绝对定位
+ **@params {Object} newElement 生成的DOM元素
+ **@params {Object} targetElement 目标DOM元素
+ * ****————ab_right————在valid.css文件中。***
+ */
 function absolute(newElement, targetElement) {
   let parent = targetElement.parentNode;
   let position = getComputedStyle(parent).position;
@@ -82,13 +87,28 @@ export default {
   /* 校验
    **@params {Object} fieldRulls 校验规则
    **@params {Object} data 带校验的数据
-   **@params {Object} ref 传入的this.$refs
+   **@params {Object} ref 传入的this.refs
+   * （TODO：refs中的所有名字都必须和传入的data属性名一致，如果不一致需要通过options的filled属性进行填充，可以参考login components下面的register文件）
    **@params {Object || Undefined} options 传入的扩展参数，可不传。options: {
    *            filled: '', //表示是否对refs进行填充，默认不填充。
    *            position: '' //表示是否开启定位功能，默认不开启。
    *            filledDirection: '' //填充方向，值为+或-，默认正向（+）填充
    *          }
    ****
+   * 示例：const FIELDRULLS = [
+   {
+   require: true,
+   name: 'phone',
+   rex: /\d{11}/,
+   emptyErr: '电话号码不能为空',
+   err: '请输入正确的电话号码'
+   },
+   {
+   require: true,
+   name: 'pwd',
+   label: '密码'
+   },
+   ];
    */
   check (fieldRulls, data, ref, options) {
     options = options || {};
