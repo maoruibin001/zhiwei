@@ -67,7 +67,6 @@ const Utils = {
       }
     };
 
-    debugger;
     if (typeof options === 'object') {
       $.extend(opts, ext);
     }

@@ -1,15 +1,16 @@
 /**
  * Created by lenovo on 2017/12/4.
+ * 工具箱
  */
 const findDescByCode = require('../dictionary/error_dictionary');
 const DatabaseOperation = require('./database/databaseOperation');
 
-const SUCCESSCODE = '000000';
-const SUCCESSMSG = '成功';
-const ERRORCODE = '999999';
-const ERRORMSG = '失败';
-const CHECKERRORCODE = '333333';
-const CHECKERRORMSG = '校验不通过';
+const SUCCESSCODE = '000000'; //成功返回code
+const SUCCESSMSG = '成功'; //成功描述
+const ERRORCODE = '999999';//失败返回code
+const ERRORMSG = '失败';//失败描述
+const CHECKERRORCODE = '333333';//校验失败返回code
+const CHECKERRORMSG = '校验不通过';//校验失败描述
 
 const Utils = {
   CHECKERRORCODE: CHECKERRORCODE,
@@ -18,6 +19,15 @@ const Utils = {
   SUCCESSMSG: SUCCESSMSG,
   ERRORCODE: ERRORCODE,
   ERRORMSG: ERRORMSG,
+
+  /**
+   * 处理返回给客户端的数据
+   * @param  {Object} data 服务器待返回的数据
+   * @param  {String} code 返回的code码
+   * @param  {String} errorMsg 返回的错误描述信息
+   *
+   * @return {Object} 处理后待返回的对象
+   */
   transformResponse(data, code, errorMsg) {
     console.log(data);
     errorMsg = errorMsg || '';
@@ -37,7 +47,7 @@ const Utils = {
       case CHECKERRORCODE :
         return {
           responseCode: CHECKERRORCODE,
-          responseMsg: errorMsg || CHECKERRORMSG,
+          responseMsg: findDescByCode(CHECKERRORCODE, errorMsg),
           model: data
         }
       default:
@@ -48,12 +58,30 @@ const Utils = {
         }
     }
   },
+  /**
+   * 保存用户信息
+   * @param  {Object} userData 用户数据
+   * @param  {Function} cb 回调函数
+   */
   saveUserInfo(userData, cb) {
     DatabaseOperation.saveUserInfo(userData, cb);
   },
+  /**
+   * 检查此用户是否注册
+   * @param  {Object} userData 用户数据
+   * @param  {Function} cb 回调函数
+   */
   matchUserInfo(userData, cb) {
     DatabaseOperation.matchUserInfo(userData, cb);
   },
+
+  /**
+   * 校验用户信息，校验规则必须和客户端相同。
+   * @param  {Object} userData 用户数据
+   * @param  {String} type 校验的是登录（login）还是注册（register）数据
+   *
+   * @return {Object} 校验结果
+   */
   checkUserInfo(data, type) {
     type = type || 'register';
     let FIELDRULLS = [];
@@ -96,6 +124,14 @@ const Utils = {
 
     return this.check(FIELDRULLS, data);
   },
+
+  /**
+   * 校验。
+   * @param  {Array} fieldRulls 校验规则
+   * @param  {Object} data 待校验数据
+   *
+   * @return {Object} 校验结果，如果通过校验则返回null，不通过返回不通过字段组成的对象。
+   */
   check(fieldRulls, data) {
     let ret = {}, fildRullList = fieldRulls || [], inValid = false;
     fildRullList.forEach(function (e) {

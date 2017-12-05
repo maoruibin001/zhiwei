@@ -3,8 +3,6 @@
  * 登录表单
  */
 import React, {Component} from 'react';
-import $ from 'jquery';
-
 import Valid from '../../components/valid/valid';
 import '../../../styles/login/login.css';
 import Utils from '../../utils/utils';

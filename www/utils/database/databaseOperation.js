@@ -1,17 +1,26 @@
 /**
  * Created by lenovo on 2017/12/4.
+ * 数据库操作
  */
 const mysql = require('mysql');
 
 const DatabaseOperation = {
-  save(queryStr, cb) {
-    let connection = mysql.createConnection({
+  /**
+   * 对数据库进行操作
+   * @param  {String} queryStr sql语句
+   * @param  {Function} cb 回调函数
+   * @param  {String} database 数据库
+   */
+  query(queryStr, cb, database) {
+    database = database ? database : 'user_info';
+    let config = {
       host: 'localhost',
       user: 'root',
       password: '123456',
       port: '3306',
-      database: 'user_info',
-    });
+      database: database,
+    };
+    let connection = mysql.createConnection(config);
     connection.connect();
     connection.query(queryStr,  (err, result) => {
       if (err) {
@@ -24,9 +33,14 @@ const DatabaseOperation = {
 
     connection.end();
   },
+  /**
+   * 根据电话获取用户信息
+   * @param  {String} phone 电话号码
+   * @param  {Function} cb 回调函数
+   */
   getUserByPhone(phone, cb) {
     let queryStr = `select * from user_base_info where phone='${phone}'`;
-    this.save(queryStr, (err, result) => {
+    this.query(queryStr, (err, result) => {
       if (err) {
         cb(err);
       } else {
@@ -34,6 +48,12 @@ const DatabaseOperation = {
       }
     });
   },
+
+  /**
+   * 检查用户是否注册
+   * @param  {Object} userInfo 用户信息
+   * @param  {Function} cb 回调函数
+   */
   checkPhoneRegistered(userInfo, cb) {
     this.getUserByPhone(userInfo.phone, (err, result) => {
       if (err) {
@@ -47,6 +67,12 @@ const DatabaseOperation = {
       }
     });
   },
+
+  /**
+   * 保存用户信息到数据库
+   * @param  {Object} userInfo 用户信息
+   * @param  {Function} cb 回调函数
+   */
   saveUserInfo(userInfo, cb) {
     this.checkPhoneRegistered(userInfo,  (err, data) => {
       if (err) {
@@ -60,7 +86,7 @@ const DatabaseOperation = {
                           ${new Date().getTime()}
                           );
                 `;
-        this.save(queryStr, (err, result) => {
+        this.query(queryStr, (err, result) => {
           if (err) {
             cb(err);
           } else {
@@ -70,6 +96,12 @@ const DatabaseOperation = {
       }
     });
   },
+
+  /**
+   * 根据现有的用户信息匹配用户
+   * @param  {Object} userInfo 用户信息
+   * @param  {Function} cb 回调函数
+   */
   matchUserInfo(userInfo, cb) {
     this.getUserByPhone(userInfo.phone, (err, result) => {
       if (err) {

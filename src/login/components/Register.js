@@ -3,7 +3,6 @@
  * 注册表单
  */
 import React, {Component} from 'react';
-import $ from 'jquery';
 import '../../../styles/login/register.css';
 import Valid from '../../components/valid/valid';
 import Utils from '../../utils/utils';
