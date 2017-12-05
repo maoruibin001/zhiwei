@@ -20,6 +20,7 @@
 ## 注意事项
 * JS统一使用ES6语法
 * 第三方库，例如react、react-dom等需要配置在package.json和webpack打包中，在打包时自动引入
+* 特别注意，要本地安装mysql并且创建一个user_info的database 用户名:root 密码:123456 然后npm start就可以运行（项目会在初始化的时候自动创建user_base_info的表）。如果你不是这样配置，请在www/utils/database/databaseOperation.js文件的query方法中自行修改。
 
 ## 第三方库参考文档
 * webpack https://webpack.js.org/
