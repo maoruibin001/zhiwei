@@ -57,7 +57,6 @@ const Utils = {
           } else {
             window.location.href = httpBasePath + '/login?target=' + encodeURIComponent(window.location.href);
           }
-
         } else {
           cb && cb((resp.responseMsg != '' ? resp.responseMsg : (resp.responseCode + '#' + resp.responseMsg)), undefined, resp, textStatus, jqXHR);
         }

@@ -60,18 +60,12 @@ class Register extends Component {
       filled: 'register_',
     });
     if (invalids) return;
-    $.ajax({
-      type: 'post',
-      url: '/los/register',
-      data: formData,
-      success: function (response) {
-        if (response.responseCode === Utils.SUCCESSCODE) {
-          location.href = response.model.url;
-        } else {
-          console.log(response);
-        }
-      },
-
+    Utils.ajax('register', formData, function(err, model) {
+      if (err) {
+        alert(err);
+      } else {
+        location.href = model.url;
+      }
     });
   }
   render() {

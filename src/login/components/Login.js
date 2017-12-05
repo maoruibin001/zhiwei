@@ -47,18 +47,10 @@ class Login extends Component {
     let invalids = Valid.check(FIELDRULLS, formData, this.refs);
     if (invalids) return;
     Utils.ajax('login', formData, function(err, model) {
-      debugger;
-    });
-    $.ajax({
-      type: 'post',
-      url: '/los/login',
-      data: formData,
-      success: function (response) {
-        if (response.responseCode === Utils.SUCCESSCODE) {
-          location.href = response.model.url;
-        } else {
-          console.log(response);
-        }
+      if (err) {
+        alert(err);
+      } else {
+        location.href = model.url;
       }
     });
   }

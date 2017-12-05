@@ -36,7 +36,7 @@ router.post('/zhiwei-pc.login', function (req, res) {
       } else {
         console.log('用户登录成功');
         res.status(200).json(Utils.transformResponse({
-          msg: '注册成功',
+          msg: '登陆成功',
           url: 'http://localhost:8089/index'
         }, Utils.SUCCESSCODE));
       }
