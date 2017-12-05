@@ -7,7 +7,7 @@ import $ from 'jquery';
 import '../../../styles/login/register.css';
 import Valid from '../../components/valid/valid';
 import Utils from '../../utils/utils';
-
+// 校验规则
 const FIELDRULLS = [
   {
     require: true,
@@ -28,14 +28,8 @@ const FIELDRULLS = [
   },
 ];
 
-function serializeData(data) {
-  return serialize(data, {
-    isJSON:true
-  });
-}
-
+// 注册表单
 class Register extends Component {
-
   constructor() {
     super();
     this.state = {
@@ -47,6 +41,7 @@ class Register extends Component {
       }
     }
   }
+// 点击注册按钮
   register(e) {
     e.preventDefault();
 
@@ -54,13 +49,14 @@ class Register extends Component {
       name: this.refs.register_name.value,
       phone: this.refs.register_phone.value,
       pwd: this.refs.register_pwd.value
-    }
+    };
+    // 校验提交数据
     let invalids = Valid.check(FIELDRULLS, formData, this.refs, {
       position: 'absolute',
       filled: 'register_',
     });
     if (invalids) return;
-    Utils.ajax('register', formData, function(err, model) {
+    Utils.ajax('register', formData, function (err, model) {
       if (err) {
         alert(err);
       } else {
@@ -68,6 +64,7 @@ class Register extends Component {
       }
     });
   }
+
   render() {
     return <div className="register-form">
       <form action="/los/register" method="POST" ref="register_form">

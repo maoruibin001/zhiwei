@@ -7,6 +7,8 @@ import '../../../styles/base.css';
 import '../../../styles/login/userform.css';
 import Login from './Login';
 import Register from './Register';
+
+// 登陆页组件
 class UserForm extends Component {
   constructor(props) {
     super(props);
@@ -14,12 +16,14 @@ class UserForm extends Component {
       isRegster: true
     }
   }
+  // 切换为注册
   registerTab(e) {
     e.preventDefault();
     this.state.isRegster ? this.setState(null) : this.setState({
       isRegster: true
     })
   }
+  // 切换为登陆
   loginTab(e) {
     e.preventDefault();
     !this.state.isRegster ? this.setState(null) : this.setState({
