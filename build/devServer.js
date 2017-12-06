@@ -15,13 +15,37 @@ const path = require('path');
 
 const bodyParser = require('body-parser');
 
-const api = require('../www/api/login/login');
+const API = require('../www/api');
 
+
+const cookieParser = require('cookie-parser');
+
+const session = require('express-session');
+
+
+function sessionConfig(app, keyword) {
+  keyword = keyword || 'sessiontest';
+  app.use(cookieParser(keyword));
+  app.use(session({
+    secret: keyword,//与cookieParser中的一致
+    resave: true,
+    saveUninitialized:true
+  }));
+}
 
 // 编译配置文件
 const compiler = webpack(devConfig);
 
 const app = express();
+
+app.use(cookieParser('sessiontest'));
+app.use(session({
+  secret: 'sessiontest',//与cookieParser中的一致
+  resave: true,
+  saveUninitialized:true
+}));
+
+// sessionConfig(app);//默认对session进行配置
 
 app.use(bodyParser.urlencoded({extended: false}));
 // app.use(express.static('./dist'));
@@ -57,7 +81,8 @@ app.get('/:pagename?', function (req, res, next) {
   })
 });
 
-app.use('/los', api);
+API(app, '/los');
+// app.use('/los', api);
 app.listen(8089, function () {
   console.log('server start at:  localhost:8089');
 });

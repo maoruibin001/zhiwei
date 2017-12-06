@@ -2,8 +2,10 @@
  * Created by lenovo on 2017/12/4.
  * 工具箱
  */
+
 const findDescByCode = require('../dictionary/error_dictionary');
 const DatabaseOperation = require('./database/databaseOperation');
+
 
 const SUCCESSCODE = '000000'; //成功返回code
 const SUCCESSMSG = '成功'; //成功描述
@@ -11,8 +13,10 @@ const ERRORCODE = '999999';//失败返回code
 const ERRORMSG = '失败';//失败描述
 const CHECKERRORCODE = '333333';//校验失败返回code
 const CHECKERRORMSG = '校验不通过';//校验失败描述
+const OPENSESSION = true; //是否开启session校验。
 
 const Utils = {
+  OPENSESSION: OPENSESSION,
   CHECKERRORCODE: CHECKERRORCODE,
   CHECKERRORMSG: CHECKERRORMSG,
   SUCCESSCODE: SUCCESSCODE,
@@ -31,6 +35,7 @@ const Utils = {
   transformResponse(data, code, errorMsg) {
     console.log(data);
     errorMsg = errorMsg || '';
+    code = code || SUCCESSCODE;
     switch (code) {
       case SUCCESSCODE :
         return {
@@ -152,6 +157,31 @@ const Utils = {
     return inValid ? ret : null;
   },
   keepUserRedis() {
+  },
+
+  setSession(req, phone) {
+    console.log('req.session: ', req.session);
+    req.session['phone'] = phone;
+  },
+
+  checkSession(req) {
+    return req.session['phone'] || null;
+  },
+
+  /**
+   * 对响应统一封装
+   * @param  {Object} res 响应对象
+   * @param  {Object} options 待响应数据 分为三个选项：{data： 待返回数据, code: 状态码, errorMsg: 错误信息}
+   * @param  {String} type 类型
+   */
+  response(res, options, type) {
+    options = options || {};
+    switch (type) {
+      case 'qita':
+        break;
+      default:
+        res.status(200).json(this.transformResponse(options.data, options.code, options.errorMsg));
+    }
   }
 };
 

@@ -58,6 +58,7 @@ const DatabaseOperation = {
    * @param  {Function} cb 回调函数
    */
   getUserByPhone(phone, cb) {
+    // 间接防止sql注入
     let queryStr = `select * from user_base_info where phone='${phone}'`;
     this.query(queryStr, (err, result) => {
       if (err) {

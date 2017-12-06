@@ -22,7 +22,10 @@
     "redux": "^3.7.2",
     "requirejs": "^2.3.5",
     "serialize-javascript": "^1.4.0",
-    "vue": "^2.5.8"
+    "vue": "^2.5.8",
+    "express-session":"^1.15.6",
+    "cookie-parser":"^1.4.3",
+    "connect-redis":"^3.3.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.6",

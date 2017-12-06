@@ -28,7 +28,6 @@ function filterUserInfo(userInfo, options) {
 }
 // 登陆接口
 router.post('/zhiwei-pc.login', function (req, res) {
-
   let userInfo = filterUserInfo(req.body, {
     type: 'login'
   });
@@ -37,21 +36,32 @@ router.post('/zhiwei-pc.login', function (req, res) {
 
   if (invalids) {
     // 校验失败回传数据
-    let responseData = Utils.transformResponse(userInfo, Utils.CHECKERRORCODE, JSON.stringify(invalids));
-    res.status(200).json(responseData);
+    Utils.response(res, {
+      data: userInfo,
+      code: Utils.CHECKERRORCODE,
+      errorMsg: JSON.stringify(invalids)
+    }, 'json');
   } else {
 
     Utils.matchUserInfo(userInfo, function (err, data) {
       if (err) {
-        console.log(err);
-        let responseData = Utils.transformResponse(null, Utils.ERRORCODE, JSON.stringify({errorMsg: err}));
-        res.status(200).json(responseData);
+        Utils.response(res, {
+          data: null,
+          code: Utils.ERRORCODE,
+          errorMsg: JSON.stringify({errorMsg: err})
+        }, 'json');
       } else {
         console.log('用户登录成功');
-        res.status(200).json(Utils.transformResponse({
-          msg: '登陆成功',
-          url: 'http://localhost:8089/index'
-        }, Utils.SUCCESSCODE));
+        if (Utils.OPENSESSION) {
+          console.log('userInfo: ', userInfo)
+          Utils.setSession(req, userInfo.phone);
+        }
+        Utils.response(res, {
+          data: {
+            msg: '登陆成功',
+            url: 'http://localhost:8089/index'
+          }
+        }, 'json');
       }
 
     });
@@ -65,19 +75,31 @@ router.post('/zhiwei-pc.register', function (req, res) {
   let invalids = Utils.checkUserInfo(userInfo, 'register');
 
   if (invalids) {
-    let responseData = Utils.transformResponse(userInfo, Utils.CHECKERRORCODE, JSON.stringify(invalids));
-    res.status(200).json(responseData);
+    Utils.response(res, {
+      data: userInfo,
+      code: Utils.CHECKERRORCODE,
+      errorMsg: JSON.stringify(invalids)
+    }, 'json');
+
   } else {
     Utils.saveUserInfo(userInfo, function (err, data) {
       if (err) {
-        console.log(err);
-        let responseData = Utils.transformResponse(null, Utils.ERRORCODE, JSON.stringify({errorMsg: err}));
-        res.status(200).json(responseData);
+        Utils.response(res, {
+          data: null,
+          code: Utils.ERRORCODE,
+          errorMsg: JSON.stringify({errorMsg: err})
+        }, 'json');
       } else {
-        res.status(200).json(Utils.transformResponse({
-          msg: '注册成功',
-          url: 'http://localhost:8089/index'
-        }, Utils.SUCCESSCODE));
+        if (Utils.OPENSESSION) {
+          Utils.setSession(req, userInfo.phone);
+        }
+        Utils.response(res, {
+          data: {
+            msg: '注册成功',
+            url: 'http://localhost:8089/index'
+          },
+          code: Utils.SUCCESSCODE,
+        }, 'json');
       }
     });
   }

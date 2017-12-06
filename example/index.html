@@ -9,6 +9,7 @@
 <h1></h1>
 <input id="ps" type="text" >
 <button>click</button>
+<img src="javascript:alert('xss')" onerror="alert(222)"/>；
 <script>
     $('button').click(function() {
       $('h1').append($('#ps').val())
