@@ -9,7 +9,6 @@ router.get('/', function(req, res, next) {
     address:"bj"
   }
   req.session.user=user;
-  console.log(req.session.user)
   res.render('index', {
     title: 'the test for nodejs session' ,
   });

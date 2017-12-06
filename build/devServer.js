@@ -23,6 +23,8 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
 
+const Util = require('../www/utils/utils');
+
 
 function sessionConfig(app, keyword) {
   keyword = keyword || 'sessiontest';
@@ -62,6 +64,7 @@ const webpackHot = hotMiddleware(compiler, {});
 const webpackDev = devMiddleware(compiler, {
   noInfo: true
 });
+
 
 app.use(webpackHot);
 

@@ -19,6 +19,7 @@ const REPONSE_DESC_LOGIN_INVALID = '登录过期';
 
 const REDISPORT = 6379; //redis 端口
 const REDISHOST = '127.0.0.1'; //redis主机
+const REDISEXPIRES = 10 * 60; //redis内容过期时间 (默认设置为10分钟过期)
 
 const Redis = require('ioredis');
 const redis = new Redis(REDISPORT, REDISHOST);
@@ -28,6 +29,7 @@ const Utils = {
   REPONSE_DESC_LOGIN_INVALID,
   REDISPORT,
   REDISHOST,
+  REDISEXPIRES,
   OPENSESSION,
   CHECKERRORCODE,
   CHECKERRORMSG,
@@ -178,7 +180,6 @@ const Utils = {
    * @param  {Any} value session值
    */
   setSession(req, name, value) {
-    console.log('req.session: ', req.session);
     req.session[name] = value;
   },
 
@@ -210,10 +211,10 @@ const Utils = {
     type = type || 'string'
     switch (type) {
       case 'string':
-        redis.set(name, value);
+        redis.set(name, value, 'EX', this.REDISEXPIRES);
         break;
       default:
-        redis.set(name, JSON.stringify(value));
+        redis.set(name, JSON.stringify(value), 'EX', this.REDISEXPIRES);
     }
   },
   redisGet(name, cb) {
@@ -222,6 +223,22 @@ const Utils = {
         cb && cb(err);
       } else {
         cb && cb(null, result);
+      }
+    })
+  },
+  redisRefresh(name, cb) {
+    this.redisGet(name, (err, result) => {
+      if (err) {
+        console.log('更新缓存失败');
+      } else {
+        if (result) {
+          this.redisSet(name, result, 'EX', this.REDISEXPIRES);
+          cb && cb(true);
+        } else {
+          console.log('登录失效');
+          cb && cb(false)
+        }
+
       }
     })
   }

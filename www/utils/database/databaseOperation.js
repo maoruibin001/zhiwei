@@ -19,7 +19,6 @@ const DatabaseOperation = {
       if (err) {
         console.log(err);
       } else {
-
         console.log('数据库表user_base_info初始化成功');
       }
     })

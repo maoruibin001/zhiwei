@@ -14,7 +14,6 @@ router.post('/zhiwei-pc.user', function (req, res) {
     } else {
       if (result) {
         let userData = JSON.parse(result);
-        console.log(userData);
         Utils.response(res, {
           data: userData
         }, 'json');

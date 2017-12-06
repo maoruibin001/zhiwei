@@ -56,7 +56,6 @@ router.post('/zhiwei-pc.login', function (req, res) {
         console.log('用户登录成功');
         Utils.redisSet('user_info', JSON.stringify(data));
         if (Utils.OPENSESSION) {
-          console.log('userInfo: ', userInfo);
           Utils.setSession(req, 'phone', userInfo.phone);
         }
         Utils.response(res, {
