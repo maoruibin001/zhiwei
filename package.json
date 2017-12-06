@@ -12,7 +12,11 @@
   },
   "dependencies": {
     "body-parser": "^1.18.2",
+    "connect-redis": "^3.3.2",
+    "cookie-parser": "^1.4.3",
+    "express-session": "^1.15.6",
     "glob": "^7.1.2",
+    "ioredis": "^3.2.2",
     "jquery": "^3.2.1",
     "mysql": "^2.15.0",
     "react": "^16.0.0",
@@ -22,10 +26,7 @@
     "redux": "^3.7.2",
     "requirejs": "^2.3.5",
     "serialize-javascript": "^1.4.0",
-    "vue": "^2.5.8",
-    "express-session":"^1.15.6",
-    "cookie-parser":"^1.4.3",
-    "connect-redis":"^3.3.2"
+    "vue": "^2.5.8"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.6",

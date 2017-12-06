@@ -21,16 +21,23 @@ const API = require('../www/api');
 const cookieParser = require('cookie-parser');
 
 const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
 
 
 function sessionConfig(app, keyword) {
   keyword = keyword || 'sessiontest';
   app.use(cookieParser(keyword));
   app.use(session({
-    secret: keyword,//与cookieParser中的一致
-    resave: true,
-    saveUninitialized:true
-  }));
+    store: new RedisStore({
+      host: "127.0.0.1",
+      port: 6379,
+      db: "0"
+    }),
+    resave:false,
+    saveUninitialized:true,
+    secret: keyword,
+    cookie: {maxAge: 100000}
+  }))
 }
 
 // 编译配置文件
@@ -38,14 +45,14 @@ const compiler = webpack(devConfig);
 
 const app = express();
 
-app.use(cookieParser('sessiontest'));
-app.use(session({
-  secret: 'sessiontest',//与cookieParser中的一致
-  resave: true,
-  saveUninitialized:true
-}));
+// app.use(cookieParser('sessiontest'));
+// app.use(session({
+//   secret: 'sessiontest',//与cookieParser中的一致
+//   resave: true,
+//   saveUninitialized:true
+// }));
 
-// sessionConfig(app);//默认对session进行配置
+sessionConfig(app);//默认对session进行配置
 
 app.use(bodyParser.urlencoded({extended: false}));
 // app.use(express.static('./dist'));

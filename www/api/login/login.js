@@ -6,6 +6,9 @@ const express = require('express');
 const router = express.Router();
 const Utils = require('../../utils/utils');
 
+
+
+
 /**
  * 从客户端请求数据中过滤出用户信息，保证用户信息中没有垃圾数据
  * @param  {Object} userInfo 客户端请求信息
@@ -42,7 +45,6 @@ router.post('/zhiwei-pc.login', function (req, res) {
       errorMsg: JSON.stringify(invalids)
     }, 'json');
   } else {
-
     Utils.matchUserInfo(userInfo, function (err, data) {
       if (err) {
         Utils.response(res, {
@@ -52,9 +54,10 @@ router.post('/zhiwei-pc.login', function (req, res) {
         }, 'json');
       } else {
         console.log('用户登录成功');
+        Utils.redisSet('user_info', JSON.stringify(data));
         if (Utils.OPENSESSION) {
-          console.log('userInfo: ', userInfo)
-          Utils.setSession(req, userInfo.phone);
+          console.log('userInfo: ', userInfo);
+          Utils.setSession(req, 'phone', userInfo.phone);
         }
         Utils.response(res, {
           data: {
@@ -91,8 +94,9 @@ router.post('/zhiwei-pc.register', function (req, res) {
         }, 'json');
       } else {
         if (Utils.OPENSESSION) {
-          Utils.setSession(req, userInfo.phone);
+          Utils.setSession(req, 'phone', userInfo.phone);
         }
+        Utils.redisSet('user_info', JSON.stringify(userInfo));
         Utils.response(res, {
           data: {
             msg: '注册成功',

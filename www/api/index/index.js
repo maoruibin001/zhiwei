@@ -8,11 +8,27 @@ const Utils = require('../../utils/utils');
 
 // 登陆接口
 router.post('/zhiwei-pc.user', function (req, res) {
-  let user = Utils.checkSession(req)
-  // res.status(200).json(Utils.transformResponse(user));
-  Utils.response(res, {
-    data: user
-  }, 'json');
+  Utils.redisGet('user_info', function(err, result) {
+    if (err) {
+      console.log(err);
+    } else {
+      if (result) {
+        let userData = JSON.parse(result);
+        console.log(userData);
+        Utils.response(res, {
+          data: userData
+        }, 'json');
+      } else {
+        Utils.response(res, {
+          data: null,
+          code: Utils.REPONSE_CODE_LOGIN_INVALID,
+          errorMsg: Utils.REPONSE_DESC_LOGIN_INVALID
+        }, 'json');
+      }
+
+    }
+  })
+
 });
 
 

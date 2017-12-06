@@ -5,7 +5,7 @@ import $ from 'jquery';
 
 const SUCCESSCODE = '000000';
 const REPONSE_CODE_LOGIN_INVALID = 'user.invalid'; // 响应编码 - 用户失效
-const httpBasePath = '/';
+const httpBasePath = 'http://localhost:8089';
 let isWexin = null;
 let appid = '' //TODO:待申请。
 

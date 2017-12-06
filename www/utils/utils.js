@@ -14,15 +14,27 @@ const ERRORMSG = '失败';//失败描述
 const CHECKERRORCODE = '333333';//校验失败返回code
 const CHECKERRORMSG = '校验不通过';//校验失败描述
 const OPENSESSION = true; //是否开启session校验。
+const REPONSE_CODE_LOGIN_INVALID = 'user.invalid'; // 响应编码 - 用户失效
+const REPONSE_DESC_LOGIN_INVALID = '登录过期';
+
+const REDISPORT = 6379; //redis 端口
+const REDISHOST = '127.0.0.1'; //redis主机
+
+const Redis = require('ioredis');
+const redis = new Redis(REDISPORT, REDISHOST);
 
 const Utils = {
-  OPENSESSION: OPENSESSION,
-  CHECKERRORCODE: CHECKERRORCODE,
-  CHECKERRORMSG: CHECKERRORMSG,
-  SUCCESSCODE: SUCCESSCODE,
-  SUCCESSMSG: SUCCESSMSG,
-  ERRORCODE: ERRORCODE,
-  ERRORMSG: ERRORMSG,
+  REPONSE_CODE_LOGIN_INVALID,
+  REPONSE_DESC_LOGIN_INVALID,
+  REDISPORT,
+  REDISHOST,
+  OPENSESSION,
+  CHECKERRORCODE,
+  CHECKERRORMSG,
+  SUCCESSCODE,
+  SUCCESSMSG,
+  ERRORCODE,
+  ERRORMSG,
 
   /**
    * 处理返回给客户端的数据
@@ -159,13 +171,24 @@ const Utils = {
   keepUserRedis() {
   },
 
-  setSession(req, phone) {
+  /**
+   * 设置session
+   * @param  {Object} req 请求对象
+   * @param  {String} name session名
+   * @param  {Any} value session值
+   */
+  setSession(req, name, value) {
     console.log('req.session: ', req.session);
-    req.session['phone'] = phone;
+    req.session[name] = value;
   },
 
-  checkSession(req) {
-    return req.session['phone'] || null;
+  /**
+   * 检查并获取session
+   * @param  {Object} req 请求对象
+   * @param  {String} name session名
+   */
+  getSession(req, name) {
+    return req.session[name] || null;
   },
 
   /**
@@ -182,6 +205,25 @@ const Utils = {
       default:
         res.status(200).json(this.transformResponse(options.data, options.code, options.errorMsg));
     }
+  },
+  redisSet(name, value, type) {
+    type = type || 'string'
+    switch (type) {
+      case 'string':
+        redis.set(name, value);
+        break;
+      default:
+        redis.set(name, JSON.stringify(value));
+    }
+  },
+  redisGet(name, cb) {
+    redis.get(name, function (err, result) {
+      if (err) {
+        cb && cb(err);
+      } else {
+        cb && cb(null, result);
+      }
+    })
   }
 };
 
