@@ -4,7 +4,7 @@
  */
 import React, {Component} from 'react';
 
-import '../../../styles/base.css';
+
 import '../../../styles/login/userform.css';
 import Login from './Login';
 import Register from './Register';

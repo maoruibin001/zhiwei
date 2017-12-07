@@ -1,0 +1,70 @@
+.header {
+    background-color: #fff;
+    height: 72px;
+    display: flex;
+    line-height: 72px;
+    padding: 0 25px;
+}
+.header .logo {
+    /*margin: 0 28px 0 24px;*/
+    flex: 1;
+}
+.header .logo a img {
+    height: 72px;
+}
+.header .nav-item {
+    flex: 3;
+    overflow: hidden;
+    display: flex;
+}
+.header .search {
+    flex: 3;
+}
+
+.header .nav-item .item {
+    flex: 1;
+    text-align: center;
+}
+
+.header .login-area {
+    flex: 2;
+
+}
+.header .login-area .logined {
+    /*display: none;*/
+    text-align: center;
+    display: flex;
+}
+.header .login-area .logined .picture img{
+    margin-bottom: -13px;
+    border-radius: 50%;
+}
+
+.header .login-area .unlogined {
+    display: none;
+    text-align: center;
+    /*display: flex;*/
+}
+
+.header .login-area .logined .notify, .header .login-area .logined .userPicture {
+    flex: 1;
+}
+.header .login-area .logined .download {
+    flex: 3;
+}
+.header .login-area .logined .notice img {
+    margin-bottom: -5px;
+}
+
+@media screen and (max-width: 900px) {
+    .header .search {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .header .nav-item, .header .login-area{
+        display: none;
+    }
+}
+

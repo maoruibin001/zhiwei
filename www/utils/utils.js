@@ -20,7 +20,7 @@ const REPONSE_DESC_LOGIN_INVALID = '登录过期';
 
 const REDISPORT = 6379; //redis 端口
 const REDISHOST = '127.0.0.1'; //redis主机
-const REDISEXPIRES = 10 * 60; //redis内容过期时间 (默认设置为10分钟过期)
+const REDISEXPIRES = 1000 * 60; //redis内容过期时间 (默认设置为1000分钟过期)
 
 const Redis = require('ioredis');
 const redis = new Redis(REDISPORT, REDISHOST);

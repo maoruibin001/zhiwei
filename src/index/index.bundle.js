@@ -3,8 +3,9 @@
  */
 import React, {Component} from 'react';
 import {render} from 'react-dom';
-import Hello from './components/Hello';
+import Index from './components/Index';
 
 import '../../styles/normalize.css';
+import '../../styles/base.css';
 
-render(<Hello/>, document.getElementById('app'));
+render(<Index/>, document.getElementById('app'));

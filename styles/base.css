@@ -30,7 +30,27 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     color: rgb(0, 0, 0);
 }
 
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
 .display_none {
     display: none;
 }
+
+.btn_empty {
+    text-decoration: none;
+    padding: .5em .8em;
+    height: 41px;
+    line-height: 39px;
+    color: #5fa6e5;
+    background: none;
+    border: 1px solid #96c2e9;
+    border-radius: 10px;
+    cursor: pointer;
+    outline: 0;
+}
+
 
