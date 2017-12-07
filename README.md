@@ -20,7 +20,6 @@
 ## 注意事项
 * JS统一使用ES6语法
 * 第三方库，例如react、react-dom等需要配置在package.json和webpack打包中，在打包时自动引入
-* 特别注意，要本地安装mysql并且创建一个user_info的database 用户名:root 密码:123456 然后npm start就可以运行（项目会在初始化的时候自动创建user_base_info的表）。如果你不是这样配置，请在www/utils/database/databaseOperation.js文件的query方法中自行修改。
 
 ## 第三方库参考文档
 * webpack https://webpack.js.org/
@@ -28,7 +27,6 @@
 * react-dom https://reactjs.org/docs/react-dom.html
 * redux https://redux.js.org/docs/introduction/
 
-## 单页面应用的写法参考
 
 ## 依赖安装
 * 安装node
@@ -50,3 +48,8 @@ npm start
 ```
 npm run build
 ```
+## 项目的其他说明
+# mysql
+* 要本地安装mysql并且创建一个user_info的database 用户名:root 密码:123456 然后npm start就可以运行（项目会在初始化的时候自动创建user_base_info的表）。如果你不是这样配置，请在www/utils/database/databaseOperation.js文件的query方法中自行修改。mysql安装使用可以参考网站：https://jingyan.baidu.com/article/cd4c2979033a17756f6e6047.html
+# redis
+* 要本地安装redis并且保持启动, 安装使用参考http://blog.csdn.net/jinwufeiyang/article/details/52156817。redis端口为6379，redis主机：'127.0.0.1' redis内容过期时间：默认设置为10分钟过期。如果要修改redis相关配置，请移步www/utils/utils.js进行修改。

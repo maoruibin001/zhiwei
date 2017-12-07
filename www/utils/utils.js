@@ -13,6 +13,7 @@ const ERRORCODE = '999999';//失败返回code
 const ERRORMSG = '失败';//失败描述
 const CHECKERRORCODE = '333333';//校验失败返回code
 const CHECKERRORMSG = '校验不通过';//校验失败描述
+
 const OPENSESSION = true; //是否开启session校验。
 const REPONSE_CODE_LOGIN_INVALID = 'user.invalid'; // 响应编码 - 用户失效
 const REPONSE_DESC_LOGIN_INVALID = '登录过期';
