@@ -4,6 +4,7 @@
 * 后端采用nginx + nodejs。
 * 本项目旨在打造一个开源学习平台，前期主攻前端方向，有兴趣的朋友可以一起搞
 * 本项目预计明年三月左右上线。
+* 关于项目的详细介绍，大家可以参考这篇文章：http://blog.csdn.net/weixin_38150378/article/details/78737707
 
 ## 目录结构
 ```
@@ -48,7 +49,7 @@ npm start
 ```
 npm run build
 ```
-## 项目的其他说明
+## 项目安装软件说明
 # mysql
 * 要本地安装mysql并且创建一个user_info的database 用户名:root 密码:123456 然后npm start就可以运行（项目会在初始化的时候自动创建user_base_info的表）。如果你不是这样配置，请在www/utils/database/databaseOperation.js文件的query方法中自行修改。mysql安装使用可以参考网站：https://jingyan.baidu.com/article/cd4c2979033a17756f6e6047.html
 # redis
