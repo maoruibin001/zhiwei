@@ -1,5 +1,6 @@
 /**
  * Created by lenovo on 2017/12/8.
+ * 内容组件
  */
 import React, {Component} from 'react';
 import '../../../styles/index/content.css';

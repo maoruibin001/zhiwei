@@ -1,13 +1,15 @@
 /**
  * Created by lenovo on 2017/12/7.
+ * 头部组件
  */
 import React, {Component} from 'react';
 import '../../../styles/index/header.css';
 
 import UserCard from './UserCard';
 
-import Utils from '../../utils/utils';
+// import Utils from '../../utils/utils';
 
+// 登录时显示的组件
 class Logined extends Component {
   constructor(props) {
     super(props);
@@ -31,6 +33,7 @@ class Logined extends Component {
   }
 }
 
+// 未登录显示的组件
 class UnLogined extends Component {
   render() {
     return <ul className="unlogined">
@@ -39,6 +42,8 @@ class UnLogined extends Component {
     </ul>
   }
 }
+
+// 头部组件
 class Header extends Component {
   constructor(props) {
     super(props);

@@ -1,3 +1,7 @@
+/**
+ * Created by lenovo on 2017/12/8.
+ * 单页面示例
+ */
 import React from 'react';
 import { render } from 'react-dom'
 

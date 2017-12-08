@@ -1,5 +1,6 @@
 /**
  * Created by lenovo on 2017/12/8.
+ * 用户卡片信息组件
  */
 import React, {Component} from 'react';
 
@@ -15,6 +16,7 @@ class UserCard extends Component {
     }
   }
 
+  // 登出
   signOut() {
     Utils.ajax('signOut', null, (err, model) => {
       if (err) {

@@ -180,7 +180,14 @@ const Utils = Object.assign({}, config, {
         res.status(200).json(this.transformResponse(options.data, options.code, options.errorMsg));
     }
   },
-  redisRemove() {},
+
+  /**
+   * redis中存放数据
+   * @param  {String} name 数据名
+   * @param  {any} value 响应对象
+   * @param  {String} type value类型，默认为string
+   * @param  {Number} REDISEXPIRES 数据过期时间，默认为配置的过期时间
+   */
   redisSet(name, value, type, REDISEXPIRES) {
     type = type || 'string'
     REDISEXPIRES = REDISEXPIRES === undefined ? this.REDISEXPIRES : REDISEXPIRES;
@@ -192,6 +199,12 @@ const Utils = Object.assign({}, config, {
         redis.set(name, JSON.stringify(value), 'EX', REDISEXPIRES);
     }
   },
+
+  /**
+   * redis中获取数据
+   * @param  {String} name 数据名
+   * @param  {Function} cb 回调函数
+   */
   redisGet(name, cb) {
     redis.get(name, function (err, result) {
       if (err) {
@@ -201,6 +214,12 @@ const Utils = Object.assign({}, config, {
       }
     })
   },
+
+  /**
+   * 跟新redis中数据的过期时间
+   * @param  {String} name 数据名
+   * @param  {Function} cb 回调函数
+   */
   redisRefresh(name, cb) {
     this.redisGet(name, (err, result) => {
       if (err) {
@@ -213,25 +232,34 @@ const Utils = Object.assign({}, config, {
           console.log('登录失效');
           cb && cb(false)
         }
-
       }
     })
   },
 
+  /**
+   * 登出
+   * @param  {Object} req 请求对象
+   */
   signOut(req) {
+    // 清理session
     req.session.destroy();
+    // 清楚redis中数据
     this.redisSet('user_info', '', 'string', 1);
   },
 
+  /**
+   * 初始化用户信息
+   * @param  {Object} userInfo 待处理的用户信息
+   *
+   * @return {Object} 处理后的用户信息
+   */
   initUserInfo(userInfo) {
     userInfo = userInfo || {};
-
     userInfo.experience = userInfo.experience || 0;
     userInfo.integral = userInfo.integral || 0;
     userInfo.imgUrl = userInfo.imgUrl || this.IMGDEFAULTURL;
     return userInfo;
   }
 });
-// const Utils = ;
 
 module.exports = Utils;

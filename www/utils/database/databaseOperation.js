@@ -18,6 +18,7 @@ const DatabaseOperation = {
                                   create_time bigint not null,
                                   primary key(id)
                                   );`;
+
     this.query(queryStr, function (err, result) {
       if (err) {
         console.log(err);
