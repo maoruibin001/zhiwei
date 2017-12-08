@@ -4,17 +4,15 @@
 import React, {Component} from 'react';
 
 import '../../../styles/index/userCard.css';
-// import Utils from '../../utils/utils';
+import Utils from '../../utils/utils';
 
 class UserCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       userInfo: {
-
       }
     }
-    console.log('333', this.props);
   }
 
   signOut() {
@@ -38,8 +36,8 @@ class UserCard extends Component {
               <a href="">{this.props.userInfo.name}</a>
             </div>
             <div className="meta">
-              <a href="" className="experience">经验12333</a>
-              <a href="" className="integral">积分555</a>
+              <a href="" className="experience">经验 <strong>{this.props.userInfo.experience}</strong></a>
+              <a href="" className="integral">积分 <strong>{this.props.userInfo.integral}</strong></a>
             </div>
           </div>
         </div>

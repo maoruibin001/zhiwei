@@ -36,7 +36,6 @@
 }
 
 .header .login-area .logined {
-    /*display: none;*/
     text-align: center;
     display: flex;
     position: relative;
@@ -48,10 +47,13 @@
 }
 
 .header .login-area .unlogined {
-    display: none;
     text-align: center;
     position: relative;
-    /*display: flex;*/
+    display: flex;
+}
+
+.header .login-area .unlogined li{
+    flex: 1;
 }
 
 .header .login-area .logined .notify, .header .login-area .logined .user-picture {

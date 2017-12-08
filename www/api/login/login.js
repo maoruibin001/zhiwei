@@ -83,6 +83,7 @@ router.post('/zhiwei-pc.register', function (req, res) {
       errorMsg: JSON.stringify(invalids)
     }, 'json');
   } else {
+    // userInfo = Utils.initUserInfo(userInfo);
     userInfo = Utils.initUserInfo(userInfo);
     Utils.saveUserInfo(userInfo, function (err, data) {
       if (err) {

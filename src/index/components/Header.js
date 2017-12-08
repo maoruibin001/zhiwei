@@ -8,13 +8,40 @@ import UserCard from './UserCard';
 
 import Utils from '../../utils/utils';
 
-class Header extends Component {
+class Logined extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showUserCard: false
     }
-    console.log('this.props.userInfo: ', this.props.userInfo)
+  }
+  render() {
+    return <ul className="logined">
+      <li className="download"><a className="btn_empty">下载APP</a></li>
+      <li className="notify"><a className="notice"><img src="/images/notice.png"/></a></li>
+      <li className="user-picture" onMouseEnter={() => this.setState({
+        showUserCard: true
+      })} onMouseLeave={() => this.setState({
+        showUserCard: false
+      })}>
+        <a className="picture" ><img src={this.props.userInfo.imgUrl}/></a>
+        {this.state.showUserCard ? <UserCard userInfo={this.props.userInfo}/> : null}
+      </li>
+    </ul>
+  }
+}
+
+class UnLogined extends Component {
+  render() {
+    return <ul className="unlogined">
+      <li><a className="btn_empty">下载APP</a></li>
+      <li><a href="/login">登录/注册</a></li>
+    </ul>
+  }
+}
+class Header extends Component {
+  constructor(props) {
+    super(props);
   }
   render() {
     return <div>
@@ -34,22 +61,7 @@ class Header extends Component {
 
         </div>
         <div className="login-area">
-          <ul className="logined">
-            <li className="download"><a className="btn_empty">下载APP</a></li>
-            <li className="notify"><a className="notice"><img src="/images/notice.png"/></a></li>
-            <li className="user-picture" onMouseEnter={() => this.setState({
-              showUserCard: true
-            })} onMouseLeave={() => this.setState({
-              showUserCard: false
-            })}>
-              <a className="picture" ><img src={this.props.userInfo.imgUrl}/></a>
-              {this.state.showUserCard ? <UserCard userInfo={this.props.userInfo}/> : null}
-            </li>
-          </ul>
-          <ul className="unlogined">
-            <li><a className="btn_empty">下载APP</a></li>
-            <li><a>登录/注册</a></li>
-          </ul>
+          {this.props.userInfo ? <Logined userInfo={this.props.userInfo}/> : <UnLogined/>}
         </div>
       </div>
     </div>

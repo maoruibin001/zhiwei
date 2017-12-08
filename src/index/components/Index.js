@@ -11,7 +11,7 @@ class Index extends Component {
   constructor() {
     super();
     this.state = {
-      userInfo: {}
+      userInfo: null
     }
   }
   componentDidMount() {

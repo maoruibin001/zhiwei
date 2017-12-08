@@ -12,6 +12,9 @@ const DatabaseOperation = {
                                   name varchar(40) not null,
                                   phone varchar(40) not null,
                                   pwd varchar(40) not null,
+                                  experience varchar(20),
+                                  integral varchar(20),
+                                  imgUrl varchar(200),
                                   create_time bigint not null,
                                   primary key(id)
                                   );`;
@@ -98,10 +101,13 @@ const DatabaseOperation = {
         cb(err);
         console.log(err);
       } else {
-        let queryStr = `insert into user_base_info (name, phone, pwd, create_time) VALUES( 
+        let queryStr = `insert into user_base_info (name, phone, pwd, experience, integral, imgUrl, create_time) VALUES( 
                           '${userInfo.name}',
                           '${userInfo.phone}', 
                           '${userInfo.pwd}', 
+                          '${userInfo.experience}', 
+                          '${userInfo.integral}', 
+                          '${userInfo.imgUrl}', 
                           ${new Date().getTime()}
                           );
                 `;
