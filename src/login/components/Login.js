@@ -45,7 +45,7 @@ class Login extends Component {
     let invalids = Valid.check(FIELDRULLS, formData, this.refs);
     if (invalids) return;
     // 所有请求统一采用Utils.ajax
-    Utils.ajax('login', formData, function(err, model) {
+    Utils.ajax('login', formData, (err, model) => {
       if (err) {
         alert(err);
       } else {

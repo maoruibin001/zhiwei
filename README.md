@@ -28,6 +28,9 @@
 * react-dom https://reactjs.org/docs/react-dom.html
 * redux https://redux.js.org/docs/introduction/
 
+## 单页面实例
+* 参考/singlePage里面有对应的react-router单页面示例
+* 建议参考网址https://www.cnblogs.com/dudeyouth/p/6617059.html
 
 ## 依赖安装
 * 安装node

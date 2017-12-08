@@ -1,0 +1,29 @@
+.footer {
+    padding: 36px 0;
+    color: #99a1a6;
+}
+.footer a {
+    color: #99a1a6;
+}
+
+.footer .container .footer-link{
+    display: flex;
+}
+
+.footer .container {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.footer .container .footer-link .link-content{
+    flex: 5;
+    display: flex;
+}
+
+.footer .container .footer-link .link-content a{
+    flex: 1;
+}
+
+.footer .container .footer-link .link-download{
+    flex: 3;
+}

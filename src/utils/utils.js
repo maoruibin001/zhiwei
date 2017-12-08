@@ -50,14 +50,16 @@ const Utils = {
       success: (resp, textStatus, jqXHR) => {
         if (resp.responseCode === this.SUCCESSCODE) {
           cb && cb(null, resp.model, resp, textStatus, jqXHR);
-        } else if (resp.responseCode === this.REPONSE_CODE_LOGIN_INVALID && (!options || options.checkLogin !== false)) { // 未登录/登录超时 - 跳转到登录页面
-          // TODO:功能待完善
-          if (this.isWeixin()) {
-            this.weichatLogin();
-          } else {
-            window.location.href = httpBasePath + '/login?target=' + encodeURIComponent(window.location.href);
-          }
-        } else {
+        }
+        // else if (resp.responseCode === this.REPONSE_CODE_LOGIN_INVALID && (!options || options.checkLogin !== false)) { // 未登录/登录超时 - 跳转到登录页面
+        //   // TODO:功能待完善
+        //   if (this.isWeixin()) {
+        //     this.weichatLogin();
+        //   } else {
+        //     window.location.href = httpBasePath + '/login?target=' + encodeURIComponent(window.location.href);
+        //   }
+        // }
+        else {
           cb && cb((resp.responseMsg != '' ? resp.responseMsg : (resp.responseCode + '#' + resp.responseMsg)), undefined, resp, textStatus, jqXHR);
         }
       },

@@ -6,8 +6,8 @@ const express = require('express');
 const router = express.Router();
 const Utils = require('../../utils/utils');
 
-// 登陆接口
-router.post('/zhiwei-pc.user', function (req, res) {
+// 用户信息接口
+router.post('/zhiwei-pc.user',  (req, res) => {
   Utils.redisGet('user_info', function(err, result) {
     if (err) {
       console.log(err);
@@ -29,6 +29,18 @@ router.post('/zhiwei-pc.user', function (req, res) {
   })
 
 });
+
+//登出接口
+router.post('/zhiwei-pc.signOut', (req, res) => {
+  Utils.signOut(req);
+  Utils.response(res, {
+    data: {
+      msg: '退出成功',
+      url: 'http://localhost:8089/login'
+    }
+  }, 'json');
+});
+
 
 
 module.exports = router;

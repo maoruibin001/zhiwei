@@ -4,12 +4,23 @@
 import React, {Component} from 'react';
 import '../../../styles/index/header.css';
 
+import UserCard from './UserCard';
+
+import Utils from '../../utils/utils';
+
 class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showUserCard: false
+    }
+    console.log('this.props.userInfo: ', this.props.userInfo)
+  }
   render() {
     return <div>
       <div className="header">
         <div className="logo">
-          <a href="/" target="_self" title="首页">
+          <a href="/index" target="_self" title="首页">
             <img src="/images/logo.png" alt=""/>
           </a>
         </div>
@@ -17,6 +28,7 @@ class Header extends Component {
           <li className="item"><a>技术分享</a></li>
           <li className="item"><a>技术资讯</a></li>
           <li className="item"><a>开源项目</a></li>
+          <li className="item"><a>程序人生</a></li>
         </ul>
         <div className="search">
 
@@ -25,7 +37,14 @@ class Header extends Component {
           <ul className="logined">
             <li className="download"><a className="btn_empty">下载APP</a></li>
             <li className="notify"><a className="notice"><img src="/images/notice.png"/></a></li>
-            <li className="userPicture"><a className="picture"><img src="/images/run.png"/></a></li>
+            <li className="user-picture" onMouseEnter={() => this.setState({
+              showUserCard: true
+            })} onMouseLeave={() => this.setState({
+              showUserCard: false
+            })}>
+              <a className="picture" ><img src={this.props.userInfo.imgUrl}/></a>
+              {this.state.showUserCard ? <UserCard userInfo={this.props.userInfo}/> : null}
+            </li>
           </ul>
           <ul className="unlogined">
             <li><a className="btn_empty">下载APP</a></li>

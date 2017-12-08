@@ -55,7 +55,7 @@ class Register extends Component {
       filled: 'register_',
     });
     if (invalids) return;
-    Utils.ajax('register', formData, function (err, model) {
+    Utils.ajax('register', formData,  (err, model) => {
       if (err) {
         alert(err);
       } else {

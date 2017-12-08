@@ -82,8 +82,8 @@ router.post('/zhiwei-pc.register', function (req, res) {
       code: Utils.CHECKERRORCODE,
       errorMsg: JSON.stringify(invalids)
     }, 'json');
-
   } else {
+    userInfo = Utils.initUserInfo(userInfo);
     Utils.saveUserInfo(userInfo, function (err, data) {
       if (err) {
         Utils.response(res, {

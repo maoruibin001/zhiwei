@@ -6,39 +6,12 @@
 const findDescByCode = require('../dictionary/error_dictionary');
 const DatabaseOperation = require('./database/databaseOperation');
 
-
-const SUCCESSCODE = '000000'; //成功返回code
-const SUCCESSMSG = '成功'; //成功描述
-const ERRORCODE = '999999';//失败返回code
-const ERRORMSG = '失败';//失败描述
-const CHECKERRORCODE = '333333';//校验失败返回code
-const CHECKERRORMSG = '校验不通过';//校验失败描述
-
-const OPENSESSION = true; //是否开启session校验。
-const REPONSE_CODE_LOGIN_INVALID = 'user.invalid'; // 响应编码 - 用户失效
-const REPONSE_DESC_LOGIN_INVALID = '登录过期';
-
-const REDISPORT = 6379; //redis 端口
-const REDISHOST = '127.0.0.1'; //redis主机
-const REDISEXPIRES = 1000 * 60; //redis内容过期时间 (默认设置为1000分钟过期)
+const config = require('../config/config'); //初始配置
 
 const Redis = require('ioredis');
-const redis = new Redis(REDISPORT, REDISHOST);
+const redis = new Redis(config.REDISPORT, config.REDISHOST);
 
-const Utils = {
-  REPONSE_CODE_LOGIN_INVALID,
-  REPONSE_DESC_LOGIN_INVALID,
-  REDISPORT,
-  REDISHOST,
-  REDISEXPIRES,
-  OPENSESSION,
-  CHECKERRORCODE,
-  CHECKERRORMSG,
-  SUCCESSCODE,
-  SUCCESSMSG,
-  ERRORCODE,
-  ERRORMSG,
-
+const Utils = Object.assign({}, config, {
   /**
    * 处理返回给客户端的数据
    * @param  {Object} data 服务器待返回的数据
@@ -48,26 +21,25 @@ const Utils = {
    * @return {Object} 处理后待返回的对象
    */
   transformResponse(data, code, errorMsg) {
-    console.log(data);
     errorMsg = errorMsg || '';
-    code = code || SUCCESSCODE;
+    code = code || this.SUCCESSCODE;
     switch (code) {
-      case SUCCESSCODE :
+      case this.SUCCESSCODE :
         return {
-          responseCode: SUCCESSCODE,
-          responseMsg: SUCCESSMSG,
+          responseCode: this.SUCCESSCODE,
+          responseMsg: this.SUCCESSMSG,
           model: data
         }
-      case ERRORCODE :
+      case this.ERRORCODE :
         return {
-          responseCode: ERRORCODE,
-          responseMsg: errorMsg || ERRORMSG,
+          responseCode: this.ERRORCODE,
+          responseMsg: errorMsg || this.ERRORMSG,
           model: data
         }
-      case CHECKERRORCODE :
+      case this.CHECKERRORCODE :
         return {
-          responseCode: CHECKERRORCODE,
-          responseMsg: findDescByCode(CHECKERRORCODE, errorMsg),
+          responseCode: this.CHECKERRORCODE,
+          responseMsg: findDescByCode(this.CHECKERRORCODE, errorMsg),
           model: data
         }
       default:
@@ -208,14 +180,16 @@ const Utils = {
         res.status(200).json(this.transformResponse(options.data, options.code, options.errorMsg));
     }
   },
-  redisSet(name, value, type) {
+  redisRemove() {},
+  redisSet(name, value, type, REDISEXPIRES) {
     type = type || 'string'
+    REDISEXPIRES = REDISEXPIRES === undefined ? this.REDISEXPIRES : REDISEXPIRES;
     switch (type) {
       case 'string':
-        redis.set(name, value, 'EX', this.REDISEXPIRES);
+        redis.set(name, value, 'EX', REDISEXPIRES);
         break;
       default:
-        redis.set(name, JSON.stringify(value), 'EX', this.REDISEXPIRES);
+        redis.set(name, JSON.stringify(value), 'EX', REDISEXPIRES);
     }
   },
   redisGet(name, cb) {
@@ -242,7 +216,22 @@ const Utils = {
 
       }
     })
+  },
+
+  signOut(req) {
+    req.session.destroy();
+    this.redisSet('user_info', '', 'string', 1);
+  },
+
+  initUserInfo(userInfo) {
+    userInfo = userInfo || {};
+
+    userInfo.experience = userInfo.experience || 0;
+    userInfo.integral = userInfo.integral || 0;
+    userInfo.imgUrl = userInfo.imgUrl || this.IMGDEFAULTURL;
+    return userInfo;
   }
-};
+});
+// const Utils = ;
 
 module.exports = Utils;

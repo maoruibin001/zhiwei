@@ -1,0 +1,63 @@
+.header .login-area .logined .user-picture .g-user-card {
+    position: absolute;
+    width: 306px;
+    top: 72px;
+    right: 0;
+    box-shadow: 0 8px 16px 0 rgba(7,17,27,.2);
+    z-index: 1000;
+}
+
+.header .login-area .logined .user-picture .g-user-card .card-inner {
+    /*display: flex;*/
+    background-color: #fff;
+    padding: 24px;
+    text-align: left;
+    line-height: 30px;
+}
+
+.header .login-area .logined .user-picture .g-user-card .card-inner .card-header {
+    display: flex;
+}
+
+.header .login-area .logined .user-picture .g-user-card .card-inner .card-header .user-picture {
+    flex: 1;
+}
+
+.header .login-area .logined .user-picture .g-user-card .card-inner .card-header .user-picture img{
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    margin-right: 12px;
+}
+.header .login-area .logined .user-picture .g-user-card .card-inner .card-header .user-message {
+
+    /*text-align: left;*/
+    margin-top: 10px;
+}
+
+.header .login-area .logined .user-picture .g-user-card .card-inner .card-header .meta {
+    display: flex;
+}
+
+.header .login-area .logined .user-picture .g-user-card .card-inner .card-header .meta .experience{
+    flex: 3;
+    font-size: .8em;
+}
+
+.header .login-area .logined .user-picture .g-user-card .card-inner .card-header .meta .integral {
+    flex: 3;
+    font-size: .8em;
+}
+
+.header .login-area .logined .user-picture .g-user-card .card-inner .card-footer a{
+    color: #93999F;
+}
+
+.header .login-area .logined .user-picture .g-user-card .card-inner .card-footer a:hover{
+    color: #4D555D;
+}
+
+.header .login-area .logined .user-picture .g-user-card .card-inner .card-header .user-message {
+    flex: 4;
+}
