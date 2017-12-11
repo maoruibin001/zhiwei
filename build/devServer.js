@@ -56,6 +56,8 @@ const app = express();
 
 sessionConfig(app);//默认对session进行配置
 
+app.use('/singlePage', require('connect-history-multi-fallback')()); //后端单页路由配置
+
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.resolve(__dirname, '../static/')));
 // 热加载中间件
@@ -70,11 +72,6 @@ app.use(webpackHot);
 
 app.use(webpackDev);
 
-// app.get('/favicon.ico', function (req, res) {
-//   console.log('request icon');
-//   // res.header('200', {'Content-Type': 'image/jpeg'});
-//   res.sendFile(path.resolve(__dirname, '../images/zhiwei.icon'));
-// });
 // 页面路由
 app.get('/:pagename?', function (req, res, next) {
   let pagename = req.params.pagename || baseConfig.INDEXMODULE;
