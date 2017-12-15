@@ -7,7 +7,7 @@ const mysql = require('mysql');
 const DatabaseOperation = {
   // 初始化建表
   init() {
-    let queryStr = `create table if not exists user_base_info(
+    let createUserBaseInfoTable = `create table if not exists user_base_info(
                                   id int not null auto_increment,
                                   name varchar(40) not null,
                                   phone varchar(40) not null,
@@ -19,13 +19,26 @@ const DatabaseOperation = {
                                   primary key(id)
                                   );`;
 
-    this.query(queryStr, function (err, result) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log('数据库表user_base_info初始化成功');
-      }
-    })
+    let createOpenBaseInfoTable = `create table if not exists open_base_info(
+                                  id int not null auto_increment,
+                                  phone varchar(40) not null,
+                                  slogan varchar(100),
+                                  primary key(id)
+                                  );`;
+
+    let createTableMap = {
+      createUserBaseInfoTable: createUserBaseInfoTable,
+      createOpenBaseInfoTable: createOpenBaseInfoTable
+    }
+    for (let key in createTableMap) {
+      this.query(createTableMap[key], function (err, result) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(`数据库表${key}初始化成功`);
+        }
+      })
+    }
   },
   /**
    * 对数据库进行操作
@@ -54,6 +67,32 @@ const DatabaseOperation = {
     });
 
     connection.end();
+  },
+
+  querySync(queryStr, database) {
+    database = database || 'user_info';
+    let config = {
+      host: 'localhost',
+      user: 'root',
+      password: '123456',
+      port: '3306',
+      database: database,
+    };
+    let connection = mysql.createConnection(config);
+    return new Promise((resolve, reject) => {
+      connection.connect();
+      connection.query(queryStr, (err, result) => {
+        if (err) {
+          console.log('[SELECT ERROR] - ', err.message);
+          reject(err)
+        } else {
+          resolve(result);
+        }
+      });
+
+      connection.end();
+    })
+
   },
   /**
    * 根据电话获取用户信息
@@ -144,8 +183,16 @@ const DatabaseOperation = {
         }
       }
     });
+  },
+
+
+  getOpenMsgSync(phone) {
+    let queryStr = `select * from open_base_info where phone='${phone}'`
+
+    return this.querySync(queryStr);
   }
 };
 
 DatabaseOperation.init();
+
 module.exports = DatabaseOperation;

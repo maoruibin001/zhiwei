@@ -259,6 +259,10 @@ const Utils = Object.assign({}, config, {
     userInfo.integral = userInfo.integral || 0;
     userInfo.imgUrl = userInfo.imgUrl || this.IMGDEFAULTURL;
     return userInfo;
+  },
+
+  getOpenMsgSync(phone) {
+    return DatabaseOperation.getOpenMsgSync(phone);
   }
 });
 

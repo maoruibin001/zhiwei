@@ -7,16 +7,17 @@ import '../../../styles/index/header.css';
 
 import UserCard from './UserCard';
 
-// import Utils from '../../utils/utils';
+import Utils from '../../utils/utils';
 
 // 登录时显示的组件
 class Logined extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showUserCard: false
+      showUserCard: false,
     }
   }
+
   render() {
     return <ul className="logined">
       <li className="download"><a className="btn_empty">下载APP</a></li>
@@ -47,6 +48,24 @@ class UnLogined extends Component {
 class Header extends Component {
   constructor(props) {
     super(props);
+    this.getUserInfo();
+    this.state = {
+      userInfo: null
+    }
+  }
+
+  getUserInfo() {
+    Utils.ajax('user', null, (err, data) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      this.setState({'userInfo': data});
+    });
+  }
+  toOpen() {
+    let phone = this.state.userInfo ? this.state.userInfo.phone : '';
+    location.href = `/open?phone=${phone}`;
   }
   render() {
     return <div>
@@ -59,14 +78,14 @@ class Header extends Component {
         <ul className="nav-item">
           <li className="item"><a>技术分享</a></li>
           <li className="item"><a>技术资讯</a></li>
-          <li className="item"><a>开源项目</a></li>
+          <li className="item" onClick={this.toOpen.bind(this)}><a>开源</a></li>
           <li className="item"><a>程序人生</a></li>
         </ul>
         <div className="search">
 
         </div>
         <div className="login-area">
-          {this.props.userInfo ? <Logined userInfo={this.props.userInfo}/> : <UnLogined/>}
+          {this.state.userInfo ? <Logined userInfo={this.state.userInfo}/> : <UnLogined/>}
         </div>
       </div>
     </div>

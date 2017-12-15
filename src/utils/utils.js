@@ -101,6 +101,38 @@ const Utils = {
       return false;
     }
   },
+
+  url2object(str) {
+    if (!str) {
+      str = window.location.search;
+    }
+
+    str = str.substring(1); // 去掉问号
+
+    let keyVals = str.split('&');
+
+    let params = {};
+
+    for (let item of keyVals) {
+      let keyValItems = item.split('=');
+      if (keyValItems.length !== 2) continue;
+      params[keyValItems[0]] = keyValItems[1];
+    }
+
+    return params;
+    // var keyVals = str.split('&'); // 按&分割
+    // var params = {};
+    // for (var i = 0; i < keyVals.length; i++) {
+    //   var keyVal = keyVals[i];
+    //   // 按照=分割
+    //   var splitIndex = keyVal.indexOf('=');
+    //   if (splitIndex !== -1) {
+    //     params[keyVal.substring(0, splitIndex)] = keyVal.substring(splitIndex + 1);
+    //   }
+    // }
+    // return params;
+  }
 };
+
 
 export default Utils;
