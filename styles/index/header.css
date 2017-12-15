@@ -12,7 +12,7 @@
 }
 
 .header .logo a img {
-    height: 72px;
+    vertical-align: middle;
 }
 
 .header .nav-item {

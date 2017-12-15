@@ -6,14 +6,36 @@
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
 </head>
 <body>
-<h1></h1>
-<input id="ps" type="text" >
-<button>click</button>
-<img src="javascript:alert('xss')" onerror="alert(222)"/>；
+<template>
+    <style>
+        div {
+            color: red;
+        }
+    </style>
+    <div>
+        <p>My favorite colour is: <strong class="coloured">Red</strong></p>
+
+    </div>
+</template>
 <script>
-    $('button').click(function() {
-      $('h1').append($('#ps').val())
-    })
+  (function() {
+    // Creates an object based in the HTML Element prototype
+    var element = Object.create(HTMLElement.prototype);
+    // Gets content from <template>
+    var template = document.currentScript.ownerDocument.querySelector('template').content;
+    // Fires when an instance of the element is created
+    element.createdCallback = function() {
+      console.log(333333333)
+      // Creates the shadow root
+      var shadowRoot = this.createShadowRoot();
+      // Adds a template clone into shadow root
+      var clone = document.importNode(template, true);
+      shadowRoot.appendChild(clone);
+    };
+    document.registerElement('favorite-colour', {
+      prototype: element
+    });
+  }());
 </script>
 </body>
 </html>
