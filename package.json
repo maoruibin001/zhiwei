@@ -16,6 +16,7 @@
     "connect-history-multi-fallback": "^1.0.0",
     "connect-redis": "^3.3.2",
     "cookie-parser": "^1.4.3",
+    "ejs-loader": "^0.3.0",
     "express-session": "^1.15.6",
     "glob": "^7.1.2",
     "ioredis": "^3.2.2",

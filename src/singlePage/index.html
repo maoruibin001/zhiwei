@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>single page</title>
-    <link rel="icon" href="http://localhost:8089/favicon.ico"/>
+    <% for(var i = 0, len = htmlWebpackPlugin.options.headers.index.length; i < len; i ++) { %>
+    <%= htmlWebpackPlugin.options.headers.index[i]%>
+    <%}%>
 </head>
 <body>
 <div id="app"></div>

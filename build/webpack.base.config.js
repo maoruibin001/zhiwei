@@ -7,6 +7,7 @@ const webpack = require('webpack');
 const glob = require('glob');
 const ENTRYHTMLMODULE = 'hello';
 
+
 // 提取css文件插件
 const ExtraTextPlugin = require('extract-text-webpack-plugin');
 // 提取html文件插件
@@ -17,6 +18,10 @@ const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 // 彩色提示插件
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 
+const headers = require('./head').headers;
+
+
+console.log(headers.index)
 /*
  * 根据给定的相对路径返回正确的绝对路径
  * @param  {String} dir  相对路径
@@ -64,14 +69,14 @@ const config = {
         loader: 'babel-loader',
         include: resolve('../src')
       },
-      {
-        test: /\.html$/,
-        loader: "html-loader?-minimize" //避免压缩html,https://github.com/webpack/html-loader/issues/50
-      },
-      {
-        test: /\.tpl$/,
-        loader: 'string-loader'
-      },
+      // {
+      //   test: /\.html$/,
+      //   loader: "html-loader?-minimize" //避免压缩html,https://github.com/webpack/html-loader/issues/50
+      // },
+      // {
+      //   test: /\.ejs$/,
+      //   loader: 'ejs-loader'
+      // },
       {
         // css提取并自动加上前缀，兼容IE8、firefox20 安卓4.4及以后
         test: /\.css$/,
@@ -135,7 +140,8 @@ Object.keys(pageEntries).forEach(page => {
     minify: { //压缩HTML文件
       removeComments: true, //移除HTML中的注释
       collapseWhitespace: false //删除空白符与换行符
-    }
+    },
+    headers: headers
   };
 
   if (moduleName in config.entry) {
