@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+
+  var list_jm_link = '{$md5HostUrl}';
+
+  var list_stop = 'list_scrollTop' + list_jm_link;
+
+  var list_page = 'list_page' + list_jm_link;
+
+  var list_data = 'list_data' + list_jm_link;
+
+  var pageIndex = 1;
+
+  $(document).ready(function () {
+
+    //loadList("{$model_id}","{$type_id}","{$cate_id}","{$city_id}","{$area_id}","{$street_id}",'{$keyword}','{$ordertype}',pageIndex);
+
+    if ($("#list-list").length > 0) {
+
+      if (sessionStorage.getItem(list_page)) {
+
+        $('#list-list').html(sessionStorage.getItem(list_data));
+
+        pageIndex = sessionStorage.getItem(list_page);
+
+        pageIndex = pageIndex * 1;
+
+        $(document).scrollTop(sessionStorage.getItem(list_stop));
+
+      } else {
+
+        loadList("{$model_id}", "{$type_id}", "{$cate_id}", "{$city_id}", "{$area_id}", "{$street_id}", '{$keyword}', '{$ordertype}', pageIndex);
+
+      }
+
+    }
+
+  });
+
+  $(document).ready(function () {
+
+    $.get("{$ajaxCommonClicksUrl}");
+
+    $.get("{$ajaxUpdateTopstatusUrl}");
+
+    $.get("{$ajaxAutoClickUrl}");
+
+    $.get("{$ajaxAutoZhuanfaUrl}");
+
+    $.get("{$ajaxShenheSmsUrl}");
+
+  });
+
+  $(window).scroll(function () {
+
+    var scrollTop = $(this).scrollTop();
+
+    var scrollHeight = $(document).height();
+
+    var windowHeight = $(this).height();
+
+    if ((scrollTop + windowHeight) >= (scrollHeight * 0.9)) {
+
+      loadList("{$model_id}", "{$type_id}", "{$cate_id}", "{$city_id}", "{$area_id}", "{$street_id}", '{$keyword}', '{$ordertype}', pageIndex);
+
+    }
+
+
+    if ((scrollTop + windowHeight) >= 1000) {
+
+      $('.back_top').show();
+
+    } else {
+
+      $('.back_top').hide();
+
+    }
+
+
+    if ($(window).scrollTop() > 350) {
+
+      sessionStorage.setItem(list_stop, $(window).scrollTop());
+
+      sessionStorage.setItem(list_data, $('#list-list').html());
+
+      if (pageIndex >= 1) {
+        sessionStorage.setItem(list_page, pageIndex);
+      }
+
+    } else {
+
+      sessionStorage.removeItem(list_page);
+
+      sessionStorage.removeItem(list_data);
+
+      sessionStorage.removeItem(list_stop);
+
+    }
+
+  });
+
+
+  $(document).on('click', '.back_top', function () {
+
+    $('body,html').animate({scrollTop: 0}, 500);
+
+    return false;
+
+  });
+
+
+  var loadListStatus = 0;
+
+  function loadList(modelId, typeId, cateId, cityId, areaId, streetId, Keyword2, orderType, Page) {
+
+    if (pageIndex > 50) {
+
+      $("#no-more-html").show();
+
+    }
+
+    if (loadListStatus == 1) {
+
+      return false;
+
+    }
+
+    loadListStatus = 1;
+
+    $.ajax({
+
+      type: "GET",
+
+      url: "{$ajaxLoadListUrl}",
+
+      data: {
+        model_id: modelId,
+        type_id: typeId,
+        cate_id: cateId,
+        city_id: cityId,
+        area_id: areaId,
+        street_id: streetId,
+        keyword: Keyword,
+        ordertype: orderType,
+        page: Page
+      },
+
+      success: function (msg) {
+
+        if (pageIndex == 1) {
+
+          $("#list-list").html('');
+
+        }
+
+        loadListStatus = 0;
+
+        var data = eval('(' + msg + ')');
+
+        if (data == 205) {
+
+          if (pageIndex == 1) {
+
+            $("#no-list-html").show();
+
+          } else {
+
+            $("#no-more-html").show();
+
+          }
+
+          return false;
+
+        } else {
+
+          ++pageIndex;
+
+          $("#list-list").append(data);
+
+        }
+
+      }
+
+    });
+
+  }
+
+
+  function hide_shouchang_prompt(uid) {
+
+    $('#index_prompt').hide();
+
+    $.ajax({
+
+      type: "GET",
+
+      url: "{$ajaxShouchangUrl}",
+
+      data: {user_id: uid},
+
+      success: function (msg) {
+
+
+      }
+
+    })
+
+
+  }
+</script>
+</body>
+</html>

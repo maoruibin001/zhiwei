@@ -40,6 +40,11 @@ class Register extends Component {
       }
     }
   }
+   download() {
+    this.setState({
+      name: 'mao'
+    })
+  }
 // 点击注册按钮
   register(e) {
     e.preventDefault();
@@ -86,7 +91,7 @@ class Register extends Component {
         点击「注册」按钮，即代表你同意 <a href="">《知微协议》</a>
       </p>
       <div className="qrcode">
-        <button className="qucode-toggleButton">下载知微</button>
+        <button className="qucode-toggleButton" onClick={this.download.bind(this)}>下载知微</button>
       </div>
     </div>
   }

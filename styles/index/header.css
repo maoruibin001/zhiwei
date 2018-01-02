@@ -30,6 +30,10 @@
     text-align: center;
 }
 
+.header .nav-item .item:hover {
+    color: #000;
+}
+
 .header .login-area {
     flex: 2;
 
@@ -65,6 +69,14 @@
 
 .header .login-area .logined .notice img {
     margin-bottom: -5px;
+}
+
+.header .active {
+    color: #000;
+    border-bottom: 1px solid #ccc;
+}
+.header .active a {
+    color: #000;
 }
 
 @media screen and (max-width: 900px) {

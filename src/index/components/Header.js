@@ -44,13 +44,21 @@ class UnLogined extends Component {
   }
 }
 
+const listItem = [
+  {id: '0', text: '技术分享', isActive: true},
+  {id: '1', text: '技术资讯', isActive: false},
+  {id: '2', text: '开源', isActive: false},
+  {id: '3', text: '程序人生', isActive: false},
+]
 // 头部组件
 class Header extends Component {
   constructor(props) {
     super(props);
     this.getUserInfo();
     this.state = {
-      userInfo: null
+      userInfo: null,
+      listItem: listItem,
+      activeItem: listItem[0]
     }
   }
 
@@ -63,9 +71,20 @@ class Header extends Component {
       this.setState({'userInfo': data});
     });
   }
-  toOpen() {
-    let phone = this.state.userInfo ? this.state.userInfo.phone : '';
-    location.href = `/open?phone=${phone}`;
+  clickItem(item) {
+    if (item.id === this.state.activeItem.id) return;
+    let listItem = this.state.listItem.map(e => {
+      e.isActive = e.id === item.id;
+      if (e.isActive) {
+        this.setState({
+          activeItem: e
+        })
+      }
+      return e;
+    });
+    this.setState({
+      listItem: listItem
+    })
   }
   render() {
     return <div>
@@ -76,10 +95,15 @@ class Header extends Component {
           </a>
         </div>
         <ul className="nav-item">
-          <li className="item"><a>技术分享</a></li>
-          <li className="item"><a>技术资讯</a></li>
-          <li className="item" onClick={this.toOpen.bind(this)}><a>开源</a></li>
-          <li className="item"><a>程序人生</a></li>
+          {this.state.listItem.map(item => {
+            return <li onClick={this.clickItem.bind(this, item)} key={item.id} className={item.isActive ? 'item active' : 'item'}>
+              <a>{item.text}</a>
+            </li>
+          })}
+          {/*<li className={["item", this.state.isActive ? 'active' : '']} ><a>技术分享</a></li>*/}
+          {/*<li className={["item", this.state.isActive ? 'active' : '']}><a>技术资讯</a></li>*/}
+          {/*<li className={["item", this.state.isActive ? 'active' : '']} onClick={this.toOpen.bind(this)}><a>开源</a></li>*/}
+          {/*<li className={["item", this.state.isActive ? 'active' : '']}><a>程序人生</a></li>*/}
         </ul>
         <div className="search">
 
