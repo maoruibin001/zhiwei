@@ -45,20 +45,31 @@ class UnLogined extends Component {
 }
 
 const listItem = [
-  {id: '0', text: '技术分享', isActive: true},
-  {id: '1', text: '技术资讯', isActive: false},
-  {id: '2', text: '开源', isActive: false},
-  {id: '3', text: '程序人生', isActive: false},
+  {id: '0', text: '技术分享', isActive: false, url: '/share'},
+  {id: '1', text: '技术资讯', isActive: false, url: '/info'},
+  {id: '2', text: '开源', isActive: false, url: '/open'},
+  {id: '3', text: '程序人生', isActive: false, url: '/life'},
 ]
 // 头部组件
 class Header extends Component {
+  componentDidMount() {
+    let path = location.pathname;
+    if (!path) return;
+     let item = this.state.listItem.filter(e => e.url === path);
+     if (item.length > 0) {
+       this.handleListItem(item[0]);
+     } else {
+       this.handleListItem({})
+     }
+  }
+
   constructor(props) {
     super(props);
     this.getUserInfo();
     this.state = {
       userInfo: null,
       listItem: listItem,
-      activeItem: listItem[0]
+      activeItem: {}
     }
   }
 
@@ -71,8 +82,16 @@ class Header extends Component {
       this.setState({'userInfo': data});
     });
   }
-  clickItem(item) {
+  handleListItem(item) {
+    if (!item) {
+      this.setState({
+        activeItem: {}
+      });
+      return;
+    }
+
     if (item.id === this.state.activeItem.id) return;
+
     let listItem = this.state.listItem.map(e => {
       e.isActive = e.id === item.id;
       if (e.isActive) {
@@ -84,7 +103,12 @@ class Header extends Component {
     });
     this.setState({
       listItem: listItem
-    })
+    });
+
+  }
+  showItem(item) {
+    if (item.id === this.state.activeItem.id) return;
+    window.location.href = item.url;
   }
   render() {
     return <div>
@@ -96,14 +120,10 @@ class Header extends Component {
         </div>
         <ul className="nav-item">
           {this.state.listItem.map(item => {
-            return <li onClick={this.clickItem.bind(this, item)} key={item.id} className={item.isActive ? 'item active' : 'item'}>
+            return <li onClick={this.showItem.bind(this, item)} key={item.id} className={item.isActive ? 'item active' : 'item'}>
               <a>{item.text}</a>
             </li>
           })}
-          {/*<li className={["item", this.state.isActive ? 'active' : '']} ><a>技术分享</a></li>*/}
-          {/*<li className={["item", this.state.isActive ? 'active' : '']}><a>技术资讯</a></li>*/}
-          {/*<li className={["item", this.state.isActive ? 'active' : '']} onClick={this.toOpen.bind(this)}><a>开源</a></li>*/}
-          {/*<li className={["item", this.state.isActive ? 'active' : '']}><a>程序人生</a></li>*/}
         </ul>
         <div className="search">
 

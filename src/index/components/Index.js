@@ -12,7 +12,8 @@ class Index extends Component {
   constructor() {
     super();
     this.state = {
-      userInfo: null
+      userInfo: null,
+      contentComponent: <Content/>
     }
   }
   // 初始化获取用户信息，然后传递到需要的子组件
@@ -25,7 +26,7 @@ class Index extends Component {
   render() {
     return <div>
       <Header userInfo={this.state.userInfo}/>
-      <Content/>
+      {this.state.contentComponent}
       <Footer/>
     </div>
   }
