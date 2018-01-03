@@ -3,9 +3,9 @@
  * Index页面组件
  */
 import React, {Component} from 'react';
-import Header from './Header'; //页头
+import Header from '../../components/Header'; //页头
 import Content from './Content'; //内容
-import Footer from './Footer'; // 页尾
+import Footer from '../../components/Footer'; // 页尾
 import Utils from '../../utils/utils'; //工具
 
 class Index extends Component {

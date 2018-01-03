@@ -4,8 +4,8 @@
  */
 import React, {Component} from 'react';
 
-import '../../../styles/index/userCard.css';
-import Utils from '../../utils/utils';
+import '../../styles/index/userCard.css';
+import Utils from '../utils/utils';
 
 class UserCard extends Component {
   constructor(props) {

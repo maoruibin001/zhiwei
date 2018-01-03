@@ -3,11 +3,11 @@
  * 头部组件
  */
 import React, {Component} from 'react';
-import '../../../styles/index/header.css';
+import '../../styles/index/header.css';
 
 import UserCard from './UserCard';
 
-import Utils from '../../utils/utils';
+import Utils from '../utils/utils';
 
 // 登录时显示的组件
 class Logined extends Component {

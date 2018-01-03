@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react';
 
-import Header from '../../index/components/Header';
+import Header from '../../components/Header';
 import Utils from '../../utils/utils';
 
 class Share extends Component {

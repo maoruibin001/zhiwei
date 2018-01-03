@@ -3,7 +3,7 @@
  * 页脚组件
  */
 import React, {Component} from 'react';
-import '../../../styles/index/footer.css';
+import '../../styles/index/footer.css';
 
 class Footer extends Component {
   render() {
