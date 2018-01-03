@@ -3,7 +3,7 @@
  * 登录表单
  */
 import React, {Component} from 'react';
-import Valid from '../../components/valid/valid';
+import Valid from '../../utils/valid/valid';
 import '../../../styles/login/login.css';
 import Utils from '../../utils/utils';
 

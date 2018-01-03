@@ -4,7 +4,7 @@
  */
 import React, {Component} from 'react';
 import '../../../styles/login/register.css';
-import Valid from '../../components/valid/valid';
+import Valid from '../../utils/valid/valid';
 import Utils from '../../utils/utils';
 // 校验规则
 const FIELDRULLS = [

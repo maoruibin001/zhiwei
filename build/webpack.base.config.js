@@ -21,7 +21,6 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const headers = require('./head').headers;
 
 
-console.log(headers.index)
 /*
  * 根据给定的相对路径返回正确的绝对路径
  * @param  {String} dir  相对路径
