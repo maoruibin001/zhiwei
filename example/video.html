@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+</head>
+<body>
+<h1><%= path2 %></h1>
+<input type="file" accept="video/*" capture="camcorder">
+<script>
+  function goAjax(url, method, param, callBack) {
+    var xmlHttp = null;
+    if (window.XMLHttpRequest) {
+      xmlHttp = new XMLHttpRequest();
+    } else {
+      xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    if (method == "get" || method == "GET") {
+      if (param.length > 0) {
+        url = url + "?" + param;
+      }
+      xmlHttp.open("get", url, true);
+      xmlHttp.setRequestHeader("If-Modified-Since", "0");//不缓存
+      xmlHttp.send(null);
+    } else {
+      xmlHttp.open("post", url, true);
+      xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xmlHttp.setRequestHeader("If-Modified-Since", "0");//不缓存
+      xmlHttp.setRequestHeader("Connection", "keep-alive");//不缓存
+      xmlHttp.send(param);
+    }
+    xmlHttp.onreadystatechange = function () {
+      if (xmlHttp.status == 200 && xmlHttp.readyState == 4) {
+        callBack(xmlHttp.responseText);
+      } else {
+//        alert(xmlHttp.statusText);
+      }
+    }
+  }
+  goAjax('/hello', 'post', {}, function (data) {
+    console.log(data);
+  })
+  //  $.ajax({
+  //      url: '/',
+  //      type: 'get',
+  //      headers: {
+  //        'Connection': 'Keep-Alive'
+  //      },
+  //      success: function(data) {
+  //        console.log(data);
+  //      },
+  //      error: function(err) {
+  //        console.log('error', err)
+  //      }
+  //    })
+</script>
+</body>
+</html>
