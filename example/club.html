@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <title>俱乐部</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/club.css">
+</head>
+<body>
+<!--header部分-->
+<header class="header">
+    <ul class="header-nav">
+        <li class="active">我的俱乐部</li>
+        <li class="create">创建俱乐部</li>
+    </ul>
+</header>
+<section class="section">
+    <!--我的俱乐部-->
+    <div class="myClub" style="display:block;">
+        <ul class="clubList">
+        </ul>
+        <!--model:解散俱乐部-->
+        <div class="bg-model dissolveModel">
+            <div class = 'content'>
+                <h3 class="center">提示</h3>
+                <p class="center" style="margin:0.3rem 0 0.4rem;color:#7D8795;">
+                    你确定要解散俱乐部吗？
+                </p>
+                <div class="rt">
+                    <button class="btn sure" style="margin-right:0.05rem">确定</button>
+                    <button class="btn cancel active">取消</button>
+                </div>
+            </div>
+        </div>
+        <!--model:房卡充值-->
+        <div class="bg-model rechargeModel">
+            <div class = 'content'>
+                <h3 class="center">请输入您要充值的房卡数：</h3>
+                <input style="margin:0.3rem 0 0.4rem;" class="roomCardNum input" type="text" autocomplete="off" placeholder="请输入充值的数目">
+                <div class="rt">
+                    <button class="btn sure" style="margin-right:0.05rem">确定</button>
+                    <button class="btn cancel active">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--创建俱乐部-->
+    <div class="createClub">
+        <div class="flex">
+            <strong>俱乐部名称:</strong>
+            <input type="text" id="createClubIpt" autocomplete="off" class="flexKid1 inputBottom newClubName" placeholder="请输入俱乐部名称">
+        </div>
+        <button class="createBtn fullBtn">+创建俱乐部</button>
+        <ul class="tips">
+            <li>1.俱乐部名称长度为2-10个字符，不允许输入特殊字符</li>
+            <li>2.创建所需房卡将直接存入俱乐部账户</li>
+            <li>3.需要绑定手机号</li>
+        </ul>
+        <!--model:创建俱乐部成功-->
+        <div class="bg-model createSuccModel">
+            <div class = 'content'>
+                <h3 class="center">提示</h3>
+                <p class="center" style="margin:0.3rem 0 0.4rem;color:#7D8795;">
+                   创建俱乐部成功！
+                </p>
+                <div class="rt">
+                    <button class="btn cancel" style="margin-right:0.05rem">知道了</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="js/quoteJs/jquery-2.1.4.min.js"></script>
+<script src="js/quoteJs/ajax.js"></script>
+<script src="js/quoteJs/tab.js"></script>
+<!--<script src="js/common.js"></script>-->
+<script src="js/club.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+/*header部分*/
+.header{color:#000;background-color:#ddd;}
+.header-nav li{float:left;width:50%;text-align:center;letter-spacing:0.02rem;}
+.active{background-color:#509DD8;color:#fff;}
+/*俱乐部*/
+.section{padding:0.2rem;}
+.section>div{display:none;}
+/*************************创建俱乐部*/
+.createClub{padding-top:0.3rem;}
+.tips li{margin:0.1rem 0;text-indent:-0.12rem;margin-left:0.14rem;font-size:0.12rem;color:#A6A6A6;}
+/*************************我的俱乐部*/
+.clubList li{border-bottom:3px solid #ddd;padding-bottom:0.1rem;margin-bottom:0.1rem;}
+.staticList{color:#A6A6A6;margin:0.1rem 0;}
+.staticList>span,.dynamicList>a{display:inline-block;width:0.8rem;font-size:0.12rem;}
+.dynamicList a{color:#509DD8;}

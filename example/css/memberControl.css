@@ -1,0 +1,11 @@
+.header{color:#fff;background-color:#509DD8;font-size:0.16rem;}
+.tab-content>div{display:none;}
+.memberControl .tab-nav{margin-top:0.1rem;height:0.4rem;line-height:0.4rem;border-bottom:1px solid #ddd;}
+.tab-nav li{float:left;width:30%;text-align:center;}
+.current{border-bottom:2px solid #f00;color:#f00;}
+/*成员列表*/
+.members li{height:0.5rem;width:100%;padding:0.1rem;}
+.addMemberBtn{position:fixed;bottom:0;line-height:0.3rem;text-align:center;}
+.addMemberBtn:visited{color:#fff;}
+
+/**/

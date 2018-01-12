@@ -1,0 +1,4 @@
+.header{color:#fff;background-color:#509DD8;font-size:0.16rem;}
+.searchMemImg{display:inline-block;width:0.24rem;height:0.26rem;background:url('../img/search.png') no-repeat;}
+.addMember{padding:0.3rem 0.1rem 0;}
+.searchMember .btn{border:0;border-bottom:1px solid #ddd;}
