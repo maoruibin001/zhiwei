@@ -80,15 +80,8 @@ function itemInArrayObj(item, arrayObj) {
       return false;
     }
   }
-  // console.log(arrayObj)
-  // let ret = arrayObj.filter(e => e[key] === item[key]);
-  // return ret.length > 0;
 }
-// console.log(s.has(e => e.id=== '3'))
-
 let c = [...b].filter(e => !itemInArrayObj(e, a));
 let d = [...a].filter(e => !itemInArrayObj(e, b));
 console.log(c);
 console.log(d);
-// let c = new Set([...s].filter(e => k.has(e => e.id)));
-// console.log(Array.from(c))
