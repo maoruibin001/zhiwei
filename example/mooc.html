@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+    <style>
+        .on {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="list">
+    <ul>
+        <li v-on:click="loadAddColor(list)" v-bind:class="list.active === true ? 'clickBox on' : 'clickBox'" class="clickBox" v-for="list in lists">{{list.name}}</li>
+
+    </ul>
+
+</div>
+<script type="text/javascript">
+  new Vue({
+
+    el: "#list",
+
+    data: {
+
+      lists: [
+
+        {name: "aaaa", active: false},
+
+        {name: "bbbb", active: false},
+
+        {name: "cccc", active: false},
+
+        {name: "dddd", active: false},
+
+        {name: "eeee", active: false}
+
+      ]
+
+    },
+
+    methods: {
+
+      addClass: function (list) {
+
+        for (var i = 0; i < this.lists.length; i++) {
+          if (this.lists[i].name == list.name) {
+
+            this.lists[i].active = true;
+
+          } else {
+
+            this.lists[i].active = false;
+
+          }
+
+        }
+
+      },
+
+      loadAddColor: function (list) {
+        this.addClass(list);
+      }
+
+    }
+
+  })
+</script>
+</body>
+</html>

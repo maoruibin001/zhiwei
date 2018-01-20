@@ -1,4 +1,5 @@
 ;(function($){
+    // console.log('23432432423242424')
     $.ajaxFun = function(obj) {
         obj.url='http://192.168.0.117:8080/CDMJServer/AgentController/'+obj.url;
         //console.log(obj);

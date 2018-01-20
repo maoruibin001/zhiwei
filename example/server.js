@@ -16,7 +16,7 @@ app.use(['/name', '/age', '/agee'], (req, res) => {
   // res.sendFile()
 });
 
-app.get('/hello', (req, res) => {
+app.get('/', (req, res) => {
   console.log(req.url)
   res.send('hello world')
 })
