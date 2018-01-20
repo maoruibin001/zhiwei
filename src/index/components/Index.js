@@ -4,8 +4,10 @@
  */
 import React, {Component} from 'react';
 import Header from '../../components/Header'; //页头
-import Content from './Content'; //内容
+import ContentBox from '../../components/ContentBox';//中间框
 import Footer from '../../components/Footer'; // 页尾
+
+import Content from './Content'; //内容
 import Utils from '../../utils/utils'; //工具
 
 class Index extends Component {
@@ -26,7 +28,9 @@ class Index extends Component {
   render() {
     return <div>
       <Header userInfo={this.state.userInfo}/>
-      {this.state.contentComponent}
+      <ContentBox>
+        {this.state.contentComponent}
+      </ContentBox>
       <Footer/>
     </div>
   }

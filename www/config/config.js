@@ -17,6 +17,8 @@ const REDISPORT = 6379; //redis 端口
 const REDISHOST = '127.0.0.1'; //redis主机
 const REDISEXPIRES = 1000 * 60; //redis内容过期时间 (默认设置为1000分钟过期)
 
+const PAGESIZE = 10; //一页10条
+const PAGENO = 1; //第一页
 const HOST = '127.0.0.1';
 const PORT = 8089;
 
@@ -38,6 +40,9 @@ const config = {
   SUCCESSMSG,
   ERRORCODE,
   ERRORMSG,
+  PAGESIZE,
+  PAGENO,
+
 };
 
 module.exports =  config;

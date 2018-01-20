@@ -4,20 +4,24 @@
 import React, {Component} from 'react';
 
 import Header from '../../components/Header';
-import Utils from '../../utils/utils';
+import Footer from '../../components/Footer';
+import ContentBox from '../../components/ContentBox';
+import Content from './Content';
 
 class Info extends Component {
   constructor(props) {
     super(props);
-    let phone = Utils.url2object().phone || '';
     this.state = {
-      phone: phone
+      infoList: []
     }
   }
   render() {
     return <div>
       <Header/>
-      <h1>hello i am Info</h1>
+      <ContentBox>
+        <Content/>
+      </ContentBox>
+      <Footer/>
     </div>
   }
 }

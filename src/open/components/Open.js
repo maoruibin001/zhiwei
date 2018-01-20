@@ -4,6 +4,9 @@
 import React, {Component} from 'react';
 
 import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import ContentBox from '../../components/ContentBox';
+
 import Recommend from './Recommend';
 import Utils from '../../utils/utils';
 
@@ -24,7 +27,10 @@ class Open extends Component {
   render() {
     return <div>
       <Header/>
-      <Recommend slogan={this.state.slogan}/>
+      <ContentBox>
+        <Recommend slogan={this.state.slogan}/>
+      </ContentBox>
+      <Footer/>
     </div>
   }
 }

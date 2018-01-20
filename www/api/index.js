@@ -4,8 +4,9 @@
 const index = require('./index/index');
 const login = require('./login/login');
 const open = require('./open/open');
+const info = require('./info/info');
 
-let routerList = [index, login, open];
+let routerList = [index, login, open, info];
 function API(app, dir) {
   dir = dir || '/'
   for(let item of routerList) {

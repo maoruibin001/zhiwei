@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import {render} from 'react-dom';
+
 import Life from './components/Life';
 
 import '../../styles/normalize.css';
