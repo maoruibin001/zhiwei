@@ -24,7 +24,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
 
-const Util = require('../www/utils/utils');
+const Utils = require('../www/utils/utils');
 task();
 
 function sessionConfig(app, keyword) {

@@ -7,30 +7,48 @@ const Utils = require('../../utils/utils');
 const fs = require('fs');
 const path = require('path');
 
+
+
+
 // 用户信息接口
 router.post('/zhiwei-pc.info',  (req, res) => {
   let pageNo = parseInt(req.body.pageNo || Utils.PAGENO);
   let pageSize = parseInt(req.body.pageSize || Utils.PAGESIZE);
-  fs.readFile(path.resolve(__dirname, './data/info.json'), (err, data) => {
+  Utils.redisGet('infoList', (err, data) => {
     if (err) {
-      Utils.response(res, {
-        data: null,
-        code: Utils.ERRORCODE,
-        errorMsg: err
-      }, 'json');
+      console.log('err: ' , err);
     } else {
-      console.log(req.body.pageNO)
-      console.log((pageNo - 1 ) * pageSize)
-      console.log((pageNo - 1 ) * pageSize + pageSize)
-      let infoList = JSON.parse(data).slice((pageNo - 1 ) * pageSize, (pageNo - 1 ) * pageSize + pageSize);
-      console.log('infoList', infoList);
-      Utils.response(res, {
-        data: infoList,
-        code: Utils.SUCCESSCODE,
-        errorMsg: null
-      }, 'json');
+      if (data) {
+        console.log('直接从缓存拿数据');
+        let infoList = JSON.parse(data).slice((pageNo - 1 ) * pageSize, (pageNo - 1 ) * pageSize + pageSize);
+        Utils.response(res, {
+          data: infoList,
+          code: Utils.SUCCESSCODE,
+          errorMsg: null
+        }, 'json');
+      } else {
+        console.log('读取info.json文件');
+        fs.readFile(path.resolve(__dirname, './data/info.json'), (err, data) => {
+          if (err) {
+            Utils.response(res, {
+              data: null,
+              code: Utils.ERRORCODE,
+              errorMsg: err
+            }, 'json');
+          } else {
+            Utils.redisSet('infoList', data);
+            let infoList = JSON.parse(data).slice((pageNo - 1 ) * pageSize, (pageNo - 1 ) * pageSize + pageSize);
+            Utils.response(res, {
+              data: infoList,
+              code: Utils.SUCCESSCODE,
+              errorMsg: null
+            }, 'json');
+          }
+        })
+      }
     }
-  })
+  });
+
 });
 
 module.exports = router;
