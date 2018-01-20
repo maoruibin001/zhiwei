@@ -4,7 +4,7 @@
 import React, {Component} from 'react';
 
 const ContentBox = (props) => {
-  let height = props.height || window.screen.availHeight - 72 - 122 + 'px';
+  let height = props.height || 'auto';
   return <div style={{height: height}}>
     {props.children}
   </div>

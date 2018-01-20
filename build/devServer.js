@@ -2,6 +2,8 @@
  * Created by lenovo on 2017/11/9.
  * 开发环境热加载服务器
  */
+// 定时任务
+const task = require('./task');
 const devConfig = require('./webpack.dev.config');
 const webpack = require('webpack');
 const baseConfig = require('./baseConfig');
@@ -17,14 +19,13 @@ const bodyParser = require('body-parser');
 
 const API = require('../www/api');
 
-
 const cookieParser = require('cookie-parser');
 
 const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
 
 const Util = require('../www/utils/utils');
-
+task();
 
 function sessionConfig(app, keyword) {
   keyword = keyword || 'sessiontest';

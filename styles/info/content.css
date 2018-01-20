@@ -1,0 +1,21 @@
+.content-itemBox {
+    /*background-color: #fff;*/
+    /*padding-top: 2em;*/
+    /*overflow: hidden;*/
+}
+
+.content-itemBox .content-item {
+    display: flex;
+    align-items: center;
+    padding: 0 2em;
+    height: 5em;
+    /*margin-bottom: 2em;*/
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    /*margin: 1em;*/
+}
+.itemText {
+    color: blue;
+    font-size: 1.5em;
+}

@@ -3,6 +3,7 @@
  */
 import React, {Component} from 'react';
 import Utils from '../../utils/utils';
+import '../../../styles/info/content.css';
 
 class Content extends Component {
   constructor() {
@@ -12,18 +13,16 @@ class Content extends Component {
     }
   }
   componentDidMount() {
-    Utils.ajax('info', {pageSize: 2, pageNo: 2}, (err, data) => {
+    Utils.ajax('info', {pageSize: 40, pageNo: 1}, (err, data) => {
       this.setState({'infoList': data});
     });
   }
   render() {
     return <div>
-      <div>
-        {this.state.infoList.map(e => {
-          console.log(e)
-          return <div>
-            <h1><a href={e.url}>{e.title}</a></h1>
-            <div>{e.desc}</div>
+      <div className="content-itemBox">
+        {this.state.infoList.map((e, k) => {
+          return <div key={k}>
+            <div  className="content-item"><a className="content-itemText" href={e.href}>{e.title}</a></div>
           </div>
         })}
       </div>
