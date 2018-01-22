@@ -4,3 +4,5 @@
 const child = new Worker('./worker.js');
 
 console.log(child)
+
+// console.log(process.memoryUsage())
