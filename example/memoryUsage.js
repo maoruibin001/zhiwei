@@ -9,10 +9,11 @@ function memory() {
   return function() {
     // a.push(2)
     console.log('a', b);
+    return a;
   }
 }
 global.gc();
 console.log(1, process.memoryUsage().heapUsed)
-let p = memory();
+memory()();
 global.gc();
 console.log(4, process.memoryUsage().heapUsed)
