@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        .div {
+            width:800px;
+            height:400px;
+            background-color: red;
+        }
+        .p2 {
+            width: 520px;
+            height: 50%;
+            background-color: blue;
+        }
+        .d2 {
+            float:left;
+            width: 200px;
+            height: 200px;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+
+<div class="div">
+    <div class="p2"></div>
+</div>
+
+<span class="d2"></span>
+
+<script>
+    var d2 = document.querySelector('.d2');
+
+    var styles = getComputedStyle(d2).display;
+
+    console.log(styles);
+
+    function aa() {
+
+    }
+
+    console.log(aa.prototype.isPrototypeOf(aa))
+</script>
+</body>
+</html>
