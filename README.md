@@ -3,8 +3,8 @@
 * 前端使用react + redux + webpack + 单双混合页面以及其他。
 * 后端采用nginx + nodejs。
 * 本项目旨在打造一个开源学习平台，前期主攻前端方向，有兴趣的朋友可以一起搞
-* 本项目预计明年三月左右上线。
 * 关于项目的详细介绍，大家可以参考这篇文章：http://blog.csdn.net/weixin_38150378/article/details/78737707
+* 知微app地址：https://github.com/maoruibin001/zhiwei-app
 
 ## 目录结构
 ```
