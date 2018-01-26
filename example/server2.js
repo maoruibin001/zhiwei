@@ -6,7 +6,7 @@ const express = require('express');
 const app = express();
 
 app.use(express.static('../example', {
-  maxAge: 1000
+  // maxAge: 1000
 
 }));
 const fresh = require('fresh');
